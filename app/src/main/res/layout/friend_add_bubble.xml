@@ -39,6 +39,14 @@
                 android:layout_gravity="center"
                 android:text="Im doing fucking shitty"
                 android:textColor="@android:color/primary_text_light" />
+            <ImageButton
+                android:id="@+id/addFriendButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/send_button"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                />
         </RelativeLayout>
     </LinearLayout>
 
