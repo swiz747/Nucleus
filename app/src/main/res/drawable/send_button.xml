@@ -1,0 +1,7 @@
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android"  android:layout_width="50dp"
+    android:layout_height="50dp">
+    <item android:drawable="@drawable/send_selected"
+        android:state_pressed="true"/>
+    <item android:drawable="@drawable/send"/>
+</selector>

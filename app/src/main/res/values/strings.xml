@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ServerTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="send_message">Send Message</string>
+    <string name="hello_world">hello world string</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server">tritium</string>
+    <string name="FuckTheWorld">Fuck Everything</string>
+    <string name="addFriend">Add Friend</string>
+</resources>
