@@ -8,19 +8,20 @@
         android:id="@+id/friend_bubble_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        >
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/statusIcon"
+            android:id="@+id/friendPic"
             android:background="@drawable/online"
             />
         <RelativeLayout
             android:id="@+id/friend_info"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/friend_name"
@@ -43,11 +44,13 @@
                 android:id="@+id/addFriendButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/send_button"
+                android:src="@drawable/addButtonStandard"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                />
+                android:layout_alignParentRight="true"/>
+
+
         </RelativeLayout>
+
     </LinearLayout>
 
 </LinearLayout>

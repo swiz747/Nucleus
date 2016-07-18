@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Dillon: ALL BUTTONS NAME HAS A SPACE IN IT (this is for text alignments-->
+    <Space
+        android:layout_width="20px"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" Theme:"
+        android:id="@+id/textView"
+        android:singleLine="false" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="5px" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ThemeSelect_Spinner"
+        android:background="#999999"
+        android:textColor="#FFFFFF"
+
+        />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="30px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Help"
+        android:id="@+id/help_button"
+        android:textAlignment="textStart"
+        android:contextClickable="false"
+        android:background="#999999"
+        android:textColor="#FFFFFF"
+        android:singleLine="false"
+        android:clickable="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Notifications"
+        android:id="@+id/notif_button"
+        android:textAlignment="textStart"
+        android:singleLine="false"
+        android:textColor="#FFFFFF"
+        android:background="#999999"
+        android:clickable="true" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="5px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Privacy"
+        android:id="@+id/privacy_button"
+        android:textColor="#FFFFFF"
+        android:background="#999999"
+        android:textAlignment="textStart"
+        android:clickable="true" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="5px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" E-Mail Address"
+        android:id="@+id/email_button"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:background="#999999"
+        android:allowUndo="false"
+        android:clickable="true" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="5px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Change Password"
+        android:id="@+id/changepw_button"
+        android:textAlignment="textStart"
+        android:singleLine="false"
+        android:background="#999999"
+        android:textColor="#FFFFFF"
+        android:clickable="true" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="30px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" About"
+        android:id="@+id/about_button"
+        android:textColor="#FFFFFF"
+        android:allowUndo="false"
+        android:background="#999999"
+        android:textAlignment="textStart"
+        android:clickable="true" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="5px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Send Feedback"
+        android:id="@+id/feedback_button"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:background="#999999"
+        android:clickable="true" />
+
+</LinearLayout>
