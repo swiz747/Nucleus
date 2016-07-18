@@ -4,24 +4,28 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="fuck tard stuff"
-        android:id="@+id/dildoText"
-        android:layout_gravity="center_horizontal" />
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_gravity="center_horizontal"
+        android:text="Email" />
 
-    <ImageButton
-        android:layout_width="214dp"
-        android:layout_height="50dp"
-        android:id="@+id/dildoButton"
-        android:background="@drawable/logo2"
-        android:layout_weight="0.32" />
-
-    <LinearLayout
-        android:orientation="vertical"
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/emailInput"
+        android:text="Email" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/loginButton"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import fragments.Chats;
 
@@ -360,8 +361,8 @@ public class MyXMPP {
             e.printStackTrace();
         }
         Form answerForm = searchForm.createAnswerForm();
-        answerForm.setAnswer("Name", true);
-        answerForm.setAnswer("search", "test"); // here i'm passsing the Text value to search
+        answerForm.setAnswer("Username", true);
+        answerForm.setAnswer("search", userName); // here i'm passing the Text value to search
 
         ReportedData resultData = null;
         try {
@@ -372,6 +373,24 @@ public class MyXMPP {
             e.printStackTrace();
         } catch (SmackException.NotConnectedException e) {
             e.printStackTrace();
+        }
+
+        if (resultData != null) {
+            List<ReportedData.Row> rows = resultData.getRows();
+            Iterator<ReportedData.Row> it = rows.iterator();
+            while (it.hasNext()) {
+
+                ReportedData.Row row = it.next();
+                List<String> values = row.getValues("Username");
+                Iterator<String> iterator = values.iterator();
+                if (iterator.hasNext()) {
+                    Friend friend = new Friend();
+                    String value = iterator.next();
+                    friend.setName(value);
+                    searchList.add(friend);
+                        //Do what you want
+                }
+            }
         }
 
 
