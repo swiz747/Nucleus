@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -31,18 +32,31 @@ public class FriendAdd extends Fragment {
     {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Find Friend");
         View view = inflater.inflate(R.layout.friendadd_layout, container, false);
-        EditText usernameSearch = (EditText) view.findViewById(R.id.friendSearch);
-        lstView_Friends = (ListView) view.findViewById(R.id.lstView_Friends);
+        final EditText usernameSearch = (EditText) view.findViewById(R.id.friendSearch);
+        Button search = (Button) view.findViewById(R.id.btnAddFriend);
+        lstView_Friends = (ListView) view.findViewById(R.id.newFriends);
 
-        //TODO: need to sanitize input
-        String userToSearch = usernameSearch.getText().toString();
-        userList = MyService.xmpp.searchUsers(userToSearch);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
-        Log.d("FriendAdd","about to search for: " + userToSearch);
+                    //TODO: need to sanitize input
+                    searchName(v,usernameSearch);
+
+
+
+            }
+        });
+
+
+
+
+        userList = new ArrayList<Friend>();
         friendaddAdapter = new FriendAddAdapter(getActivity(), userList);
         lstView_Friends.setAdapter(friendaddAdapter);
         friendaddAdapter.notifyDataSetChanged();
+
 
         return view;
     }
@@ -52,7 +66,20 @@ public class FriendAdd extends Fragment {
     {
 
     }
+    private void searchName(View v, EditText username)
+    {
+        String userToSearch = username.getText().toString();
+        if(userToSearch != null && !userToSearch.equals(""))
+        {
+            Log.d("FriendAdd","about to search for: " + userToSearch);
 
+            userList = MyService.xmpp.searchUsers(userToSearch);
+            friendaddAdapter.addMultiple(userList);
+
+            friendaddAdapter.notifyDataSetChanged();
+        }
+
+    }
 
 
 

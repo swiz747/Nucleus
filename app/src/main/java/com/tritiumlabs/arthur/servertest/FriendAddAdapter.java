@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class FriendAddAdapter extends BaseAdapter {
     ArrayList<Friend> UsersList;
 
     public FriendAddAdapter(Activity activity, ArrayList<Friend> list) {
+        UsersList = list;
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,7 +50,7 @@ public class FriendAddAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent)
     {
 
-        Friend user = UsersList.get(position);
+        final Friend user = UsersList.get(position);
         View vi = convertView;
         if (convertView == null)
         {
@@ -56,6 +58,14 @@ public class FriendAddAdapter extends BaseAdapter {
         }
 
         TextView friendName = (TextView) vi.findViewById(R.id.friend_name);
+        ImageButton addButton = (ImageButton) vi.findViewById(R.id.addFriendButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("click from", user.getName());
+            }
+        });
+
         friendName.setText(user.getName());
         return vi;
     }
@@ -65,4 +75,11 @@ public class FriendAddAdapter extends BaseAdapter {
     }
 
 
+    public void addMultiple(ArrayList<Friend> userList) {
+        for(int i = 0; i < userList.size(); i++)
+        {
+            add(userList.get(i));
+        }
+
+    }
 }
