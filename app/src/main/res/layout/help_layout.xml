@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="If you have an issue, please fill the form out below!"
+            android:id="@+id/textView2"
+            android:layout_weight="0.04"
+            android:singleLine="true"
+            android:textSize="16dp"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_weight="0.04" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" I can&apos;t login!"
+            android:id="@+id/HelpLogin_button"
+            android:layout_weight="0.04"
+            android:background="#999999"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" This feature isn&apos;t working!"
+            android:id="@+id/HelpBroke_button"
+            android:layout_weight="0.04"
+            android:textAlignment="textStart"
+            android:textColor="#FFFFFF"
+            android:background="#999999" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" How do I change my account info!"
+            android:id="@+id/HelpChange_button"
+            android:layout_weight="0.04"
+            android:textColor="#FFFFFF"
+            android:textAlignment="textStart"
+            android:background="#999999" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We can&apos;t respond to everything, but we will definitly read it! Hang tight!"
+            android:id="@+id/textView3"
+            android:layout_weight="0.04"
+            android:textColor="#000000"
+            android:textSize="12dp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+</LinearLayout>
