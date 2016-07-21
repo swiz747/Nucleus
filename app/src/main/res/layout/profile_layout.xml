@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/settings_button"
+        android:layout_gravity="right"
+        android:textSize="12dp" />
+
+    <Space
+        android:layout_width="20dp"
+        android:layout_height="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Dickcheesemcgee&apos;s Profile:"
+        android:id="@+id/textView9"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:id="@+id/profile_img"
+        android:src="@drawable/nophoto"
+        android:layout_gravity="center_horizontal" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Email:"
+                android:id="@+id/textView5"
+                android:textColor="#000000" />
+
+            <Space
+                android:layout_width="150dp"
+                android:layout_height="20px"
+                android:layout_column="8" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name:"
+                android:id="@+id/textView7"
+                android:layout_column="11"
+                android:textColor="#000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Dildos@rus.com"
+                android:id="@+id/textView6"
+                android:layout_column="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dickcheesemcgee"
+                android:id="@+id/textView8"
+                android:layout_column="11" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Location:"
+                android:id="@+id/textView10"
+                android:layout_column="8"
+                android:textAlignment="center"
+                android:textColor="#000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Dickhead, Ohio"
+                android:id="@+id/textView11"
+                android:layout_column="8"
+                android:textAlignment="center" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Bio:"
+                android:id="@+id/textView13"
+                android:layout_column="1"
+                android:textSize="12dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView android:id="@+id/scrollView"
+                android:layout_column="1"
+                android:layout_width="50dp"
+                android:layout_height="150dp"
+                android:layout_span="11" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This niggah is full of dich cheese and other shit"
+                    android:id="@+id/textView12" />
+            </ScrollView>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
