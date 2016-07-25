@@ -16,7 +16,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Space
             android:layout_width="20px"
@@ -47,151 +47,90 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/account_registration"
             android:id="@+id/registration_text"
-            android:textSize="18dp" />
+            android:textSize="30sp"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="129dp">
+        android:layout_height="wrap_content"
+        android:weightSum="1">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="20px" />
 
-            <Space
-                android:layout_width="20px"
-                android:layout_height="20px" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:layout_weight="0.50"
+            android:hint="First Name" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/first_name"
-                android:id="@+id/firstname_text"
-                android:layout_column="2"
-                android:textColor="#000000" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3"
+            android:layout_weight="0.50"
+            android:hint="Last Name" />
+    </LinearLayout>
 
-            <EditText
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/fname_textfield"
-                android:layout_column="3"
-                android:textSize="12dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/last_name"
-                android:id="@+id/lname_text"
-                android:layout_column="5"
-                android:textColor="#000000" />
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
 
-            <EditText
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/lname_textfield"
-                android:layout_column="7"
-                android:textSize="12dp" />
-        </TableRow>
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/month_spinner" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/day_spinner" />
 
-            <Space
-                android:layout_width="20px"
-                android:layout_height="20px"
-                android:layout_column="2" />
-        </TableRow>
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/year_spinner"
+            android:layout_weight="1" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </LinearLayout>
 
-            <Space android:layout_column="2" />
-        </TableRow>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/state_spinner" />
 
-        </TableRow>
+        <EditText
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/city_textfield"
+            android:hint="City" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/gender_spinner"
+            android:layout_weight="1" />
 
-            <Space android:layout_column="2" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:text="@string/age"
-                android:id="@+id/age_text"
-                android:layout_column="2"
-                android:textColor="#000000"
-                android:layout_width="wrap_content" />
-
-            <Spinner
-                android:layout_width="20dp"
-                android:layout_height="25dp"
-                android:id="@+id/spinner"
-                android:layout_column="3" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:text="@string/gender"
-                android:id="@+id/gender_text"
-                android:layout_column="2"
-                android:textColor="#000000" />
-
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/male_female"
-                android:id="@+id/mf_switch"
-                android:layout_column="3" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:text="@string/location"
-                android:id="@+id/textView14"
-                android:layout_column="2"
-                android:textColor="#000000" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/location_textfield"
-                android:layout_column="3" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-    </TableLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -207,11 +146,11 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/username_regtext"
+            android:id="@+id/email_regtext"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:hint="Username" />
+            android:hint="E-Mail" />
 
         <Space
             android:layout_width="20px"
@@ -233,10 +172,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/email_regtext"
-            android:hint="E-Mail" />
+            android:id="@+id/pass_regtext"
+            android:hint="Verify Password"
+            android:inputType="textPassword"
+            android:textStyle="italic" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -265,7 +206,7 @@
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="@string/sign_up"
             android:id="@+id/reg_button"
             android:layout_gravity="center_horizontal"
             android:textColor="#000000" />

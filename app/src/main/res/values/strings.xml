@@ -15,8 +15,9 @@
     <string name="gender">Gender:</string>
     <string name="first_name">First Name:</string>
     <string name="last_name">Last Name:</string>
-    <string name="account_registration">Account Registration</string>
+    <string name="account_registration">Register</string>
     <string name="location">Location:</string>
     <string name="register">Register</string>
     <string name="agreement">I agree to all of the TERMS AND CONDITIONS by Tritium Labs.</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
