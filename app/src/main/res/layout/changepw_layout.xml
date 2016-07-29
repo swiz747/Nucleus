@@ -107,7 +107,10 @@
             android:ems="10"
             android:id="@+id/newpw_textfield"
             android:layout_weight="1"
-            android:hint="@string/newpwfield" />
+            android:hint="@string/newpwfield"
+            android:typeface="serif"
+            android:visibility="visible"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <LinearLayout
@@ -137,7 +140,8 @@
             android:ems="10"
             android:id="@+id/verifypw_textfield"
             android:layout_weight="1"
-            android:hint="@string/verifypwfield" />
+            android:hint="@string/verifypwfield"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <LinearLayout
