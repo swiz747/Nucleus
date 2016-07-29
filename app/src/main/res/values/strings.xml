@@ -20,4 +20,9 @@
     <string name="register">Register</string>
     <string name="agreement">I agree to all of the TERMS AND CONDITIONS by Tritium Labs.</string>
     <string name="sign_up">Sign Up</string>
+    <string name="changepwtitle">Change Password</string>
+    <string name="currentpwfield">Current Password</string>
+    <string name="newpwfield">New Password</string>
+    <string name="verifypwfield">Verify Password</string>
+    <string name="forgotpwlinktext">I forgot my pw like a dumb shit I need a e-mail sent to me</string>
 </resources>
