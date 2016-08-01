@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logo_imageview"
+            android:src="@drawable/logoplaceholder" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="20px" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/account_registration"
+            android:id="@+id/registration_text"
+            android:textSize="30sp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="20px" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:layout_weight="0.50"
+            android:hint="First Name" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3"
+            android:layout_weight="0.50"
+            android:hint="Last Name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal">
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/month_spinner" />
+
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/day_spinner" />
+
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/year_spinner"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/state_spinner" />
+
+        <EditText
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/city_textfield"
+            android:hint="City" />
+
+        <Spinner
+            android:layout_width="115dp"
+            android:layout_height="35dp"
+            android:id="@+id/gender_spinner"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/email_regtext"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:hint="E-Mail" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password_regtext"
+            android:selectAllOnFocus="true"
+            android:hint="Password" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/pass_regtext"
+            android:hint="Verify Password"
+            android:inputType="textPassword"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="right" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I agree to all of the TERMS AND CONDITIONS by Tritium Labs."
+            android:id="@+id/tos_agreement"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textSize="12dp" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:id="@+id/reg_button"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+</LinearLayout>
