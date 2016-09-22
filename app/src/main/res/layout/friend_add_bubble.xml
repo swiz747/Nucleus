@@ -44,7 +44,7 @@
                 android:id="@+id/addFriendButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/addButtonStandard"
+                android:src="@drawable/add_button_standard"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"/>
 

@@ -586,7 +586,7 @@ public class MyXMPP {
 
     }
 
-
+    /**
     public class PresencePacketListener implements StanzaListener {
 
 
@@ -602,7 +602,7 @@ public class MyXMPP {
                 status = presence.getStatus().split("::")[0];
             }
         }
-    }
+    } */
 
 
 }

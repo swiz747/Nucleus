@@ -45,7 +45,15 @@ public class FriendslistAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return friendlist.size();
+        if (friendlist != null)
+        {
+            return friendlist.size();
+        }
+        else
+        {
+            return 0;
+        }
+
     }
 
     @Override

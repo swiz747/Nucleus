@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         final String password = passwordText.getText().toString();
         xmppConnection.setLoginCreds(user, password);
 
-        // TODO: move to authenticator class for oganization -AB
+        // TODO: move to authenticator class for organization -AB
 
         new android.os.Handler().post(
                 new Runnable() {
