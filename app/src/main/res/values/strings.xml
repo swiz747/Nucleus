@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">ServerTest</string>
+    <string name="app_name">Nucleus</string>
     <string name="action_settings">Settings</string>
     <string name="login">Login</string>
     <string name="send_message">Send Message</string>
     <string name="hello_world">hello world string</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: We'll organize this later -AB-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="server">tritium</string>
     <string name="FuckTheWorld">Fuck Everything</string>
@@ -25,4 +25,5 @@
     <string name="newpwfield">New Password</string>
     <string name="verifypwfield">Verify Password</string>
     <string name="forgotpwlinktext">I forgot my pw like a dumb shit I need a e-mail sent to me</string>
+    <string name="mysterySetting">Mystery</string>
 </resources>

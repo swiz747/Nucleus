@@ -18,8 +18,8 @@
         android:title="@string/addFriend"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_item3"
+        android:id="@+id/mystery"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/mysterySetting"
         app:showAsAction="never" />
 </menu>

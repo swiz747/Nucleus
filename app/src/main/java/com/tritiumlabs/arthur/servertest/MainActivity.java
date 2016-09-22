@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import fragments.Chats;
 import fragments.FriendAdd;
 import fragments.FriendsList;
+import fragments.MapHolder;
 
 
 public class MainActivity extends AppCompatActivity
@@ -85,9 +86,12 @@ public class MainActivity extends AppCompatActivity
             //handler.getLocalSettings();
 
             //notification stuff
-            notification.setSmallIcon(R.drawable.message);
-            notification.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.colored_message));
+            int color = 0xFF00FF00;
+
+            notification.setSmallIcon(R.drawable.ic_stat_testicon);
+            //notification.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_stat_testicon));
             notification.setTicker("im a ticker");
+            notification.setColor(color);
             notification.setWhen(System.currentTimeMillis());
             notification.setContentTitle("Im The Title, Nigga");
             notification.setContentText("Im the body of the notification!");
@@ -116,10 +120,9 @@ public class MainActivity extends AppCompatActivity
             openFriendAdd();
             return true;
         }
-        else if (id == R.id.add_friend)
+        else if (id == R.id.mystery)
         {
-            //TODO temporary add friend
-
+            openMapFragment();
         }
 
         return super.onOptionsItemSelected(item);
@@ -167,6 +170,12 @@ public class MainActivity extends AppCompatActivity
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragContainer, new FriendAdd()).addToBackStack("stillnotsure").commit();
+    }
+    public void openMapFragment()
+    {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragContainer, new MapHolder()).addToBackStack("stillnotsure").commit();
     }
 
 

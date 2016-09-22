@@ -27,7 +27,7 @@ dependencies {
     // Optional for XMPPTCPConnection
     // Optional for XMPP-IM (RFC 6121) support (Roster, Threaded Chats)
     // Optional for XMPP extensions support
-    
+
 
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
@@ -36,4 +36,8 @@ dependencies {
     compile 'org.igniterealtime.smack:smack-im:4.1.4'
     compile 'org.igniterealtime.smack:smack-extensions:4.1.4'
     compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.google.android.gms:play-services:9.4.0'
+
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }

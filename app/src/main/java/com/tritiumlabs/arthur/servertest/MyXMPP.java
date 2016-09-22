@@ -12,13 +12,16 @@ import com.google.gson.Gson;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
+import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.StanzaListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.chat.ChatManager;
 import org.jivesoftware.smack.chat.ChatManagerListener;
 import org.jivesoftware.smack.chat.ChatMessageListener;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.roster.Roster;
 import org.jivesoftware.smack.roster.RosterEntry;
@@ -582,6 +585,24 @@ public class MyXMPP {
         }
 
     }
+
+    /**
+    public class PresencePacketListener implements StanzaListener {
+
+
+        @Override
+        public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
+            if(!(packet instanceof Presence)){
+                return;
+            }
+            Presence presence = (Presence)packet;
+            if(presence.getMode() != null){
+                status = presence.getMode();
+            }else if(status != null) {
+                status = presence.getStatus().split("::")[0];
+            }
+        }
+    } */
 
 
 }
