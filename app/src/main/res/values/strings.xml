@@ -26,4 +26,8 @@
     <string name="verifypwfield">Verify Password</string>
     <string name="forgotpwlinktext">I forgot my pw like a dumb shit I need a e-mail sent to me</string>
     <string name="mysterySetting">Mystery</string>
+    <string name="welcome_username">Username</string>
+    <string name="usernamestring">PulsatingVagina</string>
+    <string name="whereimfrom">City, State</string>
+    <string name="userbio">I eat penis for dinner. My vagina eats sharks. My ovaries have lazers attatched.</string>
 </resources>
