@@ -30,4 +30,16 @@
     <string name="usernamestring">PulsatingVagina</string>
     <string name="whereimfrom">City, State</string>
     <string name="userbio">I eat penis for dinner. My vagina eats sharks. My ovaries have lazers attatched.</string>
+    <string name="mainusertext">Hey! Me too!</string>
+    <string name="otherusertext">I\'m a message bubble!</string>
+    <string name="welcomemessage">Welcome Back!</string>
+    <string name="randomchatbutton">Chat Now!</string>
+    <string name="userswithinmile">24 Users within 10 miles!</string>
+    <string name="gochatrooms">Join the rooms!</string>
+    <string name="userbio_profile">Hello, I am the user bio, this is just a demo of how things will look in a profile layout scheme for this particular scroll.</string>
+    <string name="profiletextgender">Female</string>
+    <string name="profiletextage">Age</string>
+    <string name="profiletextlocation">Warwick, RI</string>
+    <string name="profiletextname">PulsatingVagina</string>
+    <string name="profiletextheader">Profile</string>
 </resources>
