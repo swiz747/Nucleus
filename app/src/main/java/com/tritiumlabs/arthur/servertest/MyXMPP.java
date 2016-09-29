@@ -323,6 +323,8 @@ public class MyXMPP {
         for (RosterEntry entry : entries) {
             String i = entry.getUser();
 
+
+
             strFriends = strFriends + i + ",";
         }
         strFriends = strFriends.substring(0,strFriends.length());

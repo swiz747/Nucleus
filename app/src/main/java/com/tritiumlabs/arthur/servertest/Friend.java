@@ -13,8 +13,21 @@ package com.tritiumlabs.arthur.servertest;
 
 public class Friend {
 
-    private String userName, name;
+    private String userName;
+    private String name;
+    private String emoStatus;
+    private String onlineStatus;
     private String image; //this is a place holder for user picture -AB
+    private double latitude;
+    private double longitude;
+
+
+    public Friend(String userName, String name, String emoStatus, String onlineStatus) {
+        this.userName = userName;
+        this.name = name;
+        this.emoStatus = emoStatus;
+        this.onlineStatus = onlineStatus;
+    }
 
     public Friend(String userName, String name)
     {
@@ -46,5 +59,37 @@ public class Friend {
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public String getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public void setOnlineStatus(String onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
+
+    public String getEmoStatus() {
+        return emoStatus;
+    }
+
+    public void setEmoStatus(String emoStatus) {
+        this.emoStatus = emoStatus;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

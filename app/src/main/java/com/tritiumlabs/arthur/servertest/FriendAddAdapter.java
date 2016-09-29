@@ -20,10 +20,12 @@ public class FriendAddAdapter extends BaseAdapter {
 
     private static final String TAG = "FriendslistAdapter";
     private static LayoutInflater inflater = null;
+    private MyXMPP xmpp;
     ArrayList<Friend> UsersList;
 
     public FriendAddAdapter(Activity activity, ArrayList<Friend> list) {
         UsersList = list;
+        xmpp = MyXMPP.getInstance(activity);
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,6 +65,7 @@ public class FriendAddAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.d("click from", user.getName());
+                xmpp.addFriend(user.getName());
             }
         });
 
