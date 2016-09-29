@@ -22,4 +22,11 @@
         android:orderInCategory="100"
         android:title="@string/mysterySetting"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/refresh"
+        android:orderInCategory="100"
+        android:icon="@drawable/colored_message"
+        android:title="@string/refresh"
+        app:showAsAction="always" />
 </menu>

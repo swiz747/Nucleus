@@ -26,4 +26,5 @@
     <string name="verifypwfield">Verify Password</string>
     <string name="forgotpwlinktext">I forgot my pw like a dumb shit I need a e-mail sent to me</string>
     <string name="mysterySetting">Mystery</string>
+    <string name="refresh">refresh</string>
 </resources>

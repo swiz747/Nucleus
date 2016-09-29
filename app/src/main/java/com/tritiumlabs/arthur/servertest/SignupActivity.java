@@ -23,7 +23,7 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
     public static Authenticator tempXMPPConnection;
      AccountManager accountManager;
     EditText nameText;
-    EditText userName;
+    EditText userEmail;
     EditText passwordText;
     Button btnSignup;
     TextView loginLink;
@@ -32,12 +32,11 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
 
 
     @Override
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         nameText = (EditText)findViewById(R.id.input_name);
-        userName = (EditText)findViewById(R.id.input_email);
+        userEmail = (EditText)findViewById(R.id.input_email);
         passwordText = (EditText) findViewById(R.id.input_password);
         btnSignup = (Button)findViewById(R.id.btn_signup);
         loginLink = (TextView)findViewById(R.id.link_login);
@@ -45,7 +44,7 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         tempXMPPConnection = new Authenticator(this,"tritium","45.35.4.171",5222);
         //TODO: this is for easy testing because im lazy -AB
         nameText.setText("tester");
-        userName.setText("Dildo@gmail.com");
+        userEmail.setText("Dildo@gmail.com");
         passwordText.setText("fuck123");
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +65,13 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         });
     }
 
+     @Override
+     public void onDestroy()
+     {
+         super.onDestroy();
+         tempXMPPConnection.disconnect();
+     }
+
     public void signup() {
         Log.d(TAG, "Signup");
 
@@ -84,7 +90,7 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         progressDialog.show();
 
         final String name = nameText.getText().toString();
-        final String user = userName.getText().toString();
+        final String email = userEmail.getText().toString();
         final String password = passwordText.getText().toString();
         tempXMPPConnection.connect("Signup");
         accountManager = AccountManager.getInstance(tempXMPPConnection.connection);
@@ -136,7 +142,7 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         boolean valid = true;
 
         String name = nameText.getText().toString();
-        String email = userName.getText().toString();
+        String email = userEmail.getText().toString();
         String password = passwordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
@@ -147,10 +153,10 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            userName.setError("enter a valid email address");
+            userEmail.setError("enter a valid email address");
             valid = false;
         } else {
-            userName.setError(null);
+            userEmail.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {

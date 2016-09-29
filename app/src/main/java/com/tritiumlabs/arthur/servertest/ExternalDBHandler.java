@@ -1,23 +1,15 @@
 package com.tritiumlabs.arthur.servertest;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
+
+import com.tritiumlabs.arthur.servertest.interfaces.ExternalDBInterface;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Arthur on 9/19/2016.
@@ -26,94 +18,61 @@ import android.util.Log;
 
 public class ExternalDBHandler {
 
-    private static LocalDBHandler instance = null;
-
-    private static final String DATABASE_NAME = "RoundAbout";
-    // table names
-    private static final String TABLE_MESSAGES = "messages";
-    private static final String TABLE_SETTINGS = "settings";
-    private Context currentContext;
-
-    // Progress Dialog
-    private ProgressDialog pDialog;
+    public LocationInfo getLocation(String username)
+    {
+        final LocationInfo returnInfo = new LocationInfo(username);
+        String latText = "";
+        String longText = "";
+        ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);
+        final Call<List<LocationInfo>> call =
+                dbInterface.getLocation(username);
 
 
-    // urls
-    private static String url_get_locations = "awdawd";
+        call.enqueue(new Callback<List<LocationInfo>>() {
+            @Override
+            public void onResponse(Call<List<LocationInfo>> call, Response<List<LocationInfo>> response) {
 
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS = "products";
-    private static final String TAG_PID = "pid";
-    private static final String TAG_NAME = "name";
-    // products JSONArray
-    JSONArray products = null;
+                returnInfo.setLatitude(response.body().get(0).getLatitude());
+                returnInfo.setLongitude(response.body().get(0).getLongitude());
+                Log.d("externalDB handler", returnInfo.toString());
+            }
+            @Override
+            public void onFailure(Call<List<LocationInfo>> call, Throwable t) {
 
-
-
-    public static synchronized LocalDBHandler getInstance(Context context) {
-
-        // Use the application context, which will ensure that you
-        // don't accidentally leak an Activity's context.
-        // See this article for more information: http://bit.ly/6LRzfx
-        if (instance == null) {
-            instance = new LocalDBHandler(context.getApplicationContext());
-        }
-        return instance;
+                returnInfo.setLatitude("0");
+                returnInfo.setLongitude("0");
+                Log.d("externalDB handler", t.getMessage());
+            }
+        });
+        return returnInfo;
     }
 
-    public ExternalDBHandler(Context context) {
+    public void setLocation(String username, double latitude, double longitude)
+    {
+        final String returnValue = "";
 
-        // Loading products in Background Thread
-        new GetLocations().execute();
-
-    }
-
+        ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);
+        final Call<List<LocationInfo>> call =
+                dbInterface.setLocation(username, latitude, longitude);
 
 
+        call.enqueue(new Callback<List<LocationInfo>>() {
+            @Override
+            public void onResponse(Call<List<LocationInfo>> call, Response<List<LocationInfo>> response) {
+                Log.d("externalDB handler", "Success!");
 
-    /**
-     * Background Async Task  making HTTP Request
-     * */
-    class GetLocations extends AsyncTask<String, String, String> {
+            }
+            @Override
+            public void onFailure(Call<List<LocationInfo>> call, Throwable t) {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(currentContext);
-            pDialog.setMessage("Stalking friends...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
+                Log.d("externalDB handler", t.getMessage());
 
-        /**
-         * getting All locations from url
-         * */
-        protected String doInBackground(String... args)
-        {
-            return null;
-        }
-
+            }
+        });
 
     }
 
-
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
-        protected void onPostExecute(String result) {
-            // dismiss the dialog after getting all products
-            pDialog.dismiss();
-
-
-        }
-
-    }
+}
 
 
 

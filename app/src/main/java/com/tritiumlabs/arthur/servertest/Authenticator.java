@@ -84,17 +84,7 @@ public class Authenticator {
                 if (connection.isConnected())
                     return false;
                 isconnecting = true;
-                if (isToasted)
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
 
-                        @Override
-                        public void run() {
-
-                            Toast.makeText(context,
-                                    caller + "=>connecting....",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
                 Log.d("Connect() Function", caller + "=>connecting....");
 
                 try {
@@ -114,20 +104,7 @@ public class Authenticator {
                     connected = true;
 
                 } catch (IOException e) {
-                    if (isToasted)
-                        new Handler(Looper.getMainLooper())
-                                .post(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-
-                                        Toast.makeText(
-                                                context,
-                                                "(" + caller + ")"
-                                                        + "IOException: ",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
 
                     Log.e("(" + caller + ")", "IOException: " + e.getMessage());
                 } catch (SmackException e) {
@@ -135,29 +112,13 @@ public class Authenticator {
 
                         @Override
                         public void run() {
-                            Toast.makeText(context,
-                                    "(" + caller + ")" + "SMACKException: ",
-                                    Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     Log.e("(" + caller + ")",
                             "SMACKException: " + e.getMessage());
                 } catch (XMPPException e) {
-                    if (isToasted)
 
-                        new Handler(Looper.getMainLooper())
-                                .post(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-
-                                        Toast.makeText(
-                                                context,
-                                                "(" + caller + ")"
-                                                        + "XMPPException: ",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
                     Log.e("connect(" + caller + ")",
                             "XMPPException: " + e.getMessage());
 

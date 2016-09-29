@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
-                finish();
+
             }
         });
     }
@@ -133,8 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                //this.finish();
+                // fill out thier username for them
             }
         }
     }
@@ -154,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         xmppConnection.dbHandler.setUserPassword(password);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onLoginFailed(String why) {
