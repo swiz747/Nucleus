@@ -112,6 +112,7 @@ public class MyXMPP {
 
     public void init() {
         gson = new Gson();
+        //TODO add packet listeners here -AB
         mMessageListener = new MMessageListener(context);
         mChatManagerListener = new ChatManagerListenerImpl();
         initialiseConnection();
@@ -258,6 +259,10 @@ public class MyXMPP {
         Log.e("(" + "login()" + "):" ,"success =" + derp);
         return isSuccessful;
 
+    }
+    public boolean getLoggedIn()
+    {
+        return loggedin;
     }
 
     private class ChatManagerListenerImpl implements ChatManagerListener {

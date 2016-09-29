@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         //holy shit we need to revisit this this will hang forever if you fuck up
                         long startTime = System.currentTimeMillis(); //fetch starting time
                         boolean success = false;
-                        while(!xmppConnection.loggedin)
+                        while(!xmppConnection.getLoggedIn())
                         {
                             if(!((System.currentTimeMillis()-startTime)<10000))
                             {
