@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         //TODO: add option to remain logged in/  or remember username and PW
 
         //TODO: this is for easy testing because im lazy -AB
+
         userName.setText("phoneapp");
         passwordText.setText("derpass747");
 
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        Log.d("OVERHERE", "test to see my message FFS");
     }
 
     public void login() {
@@ -134,6 +136,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 // TODO: Implement successful signup logic here
                 // fill out thier username for them
+                //Bundle extras = data.getExtras();
+                //userName.setText(extras.getString("username"));
+                Log.d("OVERHERE", "did this bullshit actually work?");
+
             }
         }
     }

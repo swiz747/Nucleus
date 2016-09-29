@@ -2,7 +2,9 @@
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +15,13 @@ import android.widget.Toast;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.iqregister.AccountManager;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
  public class SignupActivity extends AppCompatActivity
@@ -27,6 +35,8 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
     EditText passwordText;
     Button btnSignup;
     TextView loginLink;
+     Set<String> derp;
+
 
 
 
@@ -40,12 +50,14 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         passwordText = (EditText) findViewById(R.id.input_password);
         btnSignup = (Button)findViewById(R.id.btn_signup);
         loginLink = (TextView)findViewById(R.id.link_login);
+
         //TODO: there are now 3 places that have this hard coded, we need a global constant or something, maybe pop it in an sqlite table? - AB
         tempXMPPConnection = new Authenticator(this,"tritium","45.35.4.171",5222);
         //TODO: this is for easy testing because im lazy -AB
         nameText.setText("tester");
         userEmail.setText("Dildo@gmail.com");
         passwordText.setText("fuck123");
+
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +104,17 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
         final String name = nameText.getText().toString();
         final String email = userEmail.getText().toString();
         final String password = passwordText.getText().toString();
+        final Map<String,String> attributes = new HashMap<>();
+        attributes.put("email", email);
         tempXMPPConnection.connect("Signup");
         accountManager = AccountManager.getInstance(tempXMPPConnection.connection);
 
 
+
+
+
         // TODO: Move method to authenticator class for organization -AB
+                // TODO: make signup shorter the delay is arbitrary right now -AB
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -104,7 +122,7 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
 
 
                         try {
-                            accountManager.createAccount(name, password);
+                            accountManager.createAccount(name, password, attributes);
                         } catch (XMPPException e1) {
                             Log.d(e1.getMessage(), String.valueOf(e1));
                             onSignupFailed();
@@ -117,18 +135,22 @@ import org.jivesoftware.smackx.iqregister.AccountManager;
                         }
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        onSignupSuccess();
+                        onSignupSuccess(name);
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
 
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(String name) {
         btnSignup.setEnabled(true);
         setResult(RESULT_OK, null);
+
+
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivityForResult(intent, REQUEST_LOGIN);
+        intent.putExtra("username", name);
+        setResult(RESULT_OK, intent);
+        startActivity(intent);
         finish();
     }
 

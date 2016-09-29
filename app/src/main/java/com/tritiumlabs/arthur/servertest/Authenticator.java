@@ -77,7 +77,7 @@ public class Authenticator {
     }
 
     public void connect(final String caller) {
-        Log.d("xmpp", "in connect chumk!");
+        Log.d("xmpp", "in connect chunk!");
         AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected synchronized Boolean doInBackground(Void... arg0) {
@@ -129,6 +129,10 @@ public class Authenticator {
         connectionThread.execute();
     }
 
+    public boolean getIsConnected()
+    {
+        return connected;
+    }
     //TODO make this return an error or something upon fuckup
     public void createUser(String username, String Password)
     {
