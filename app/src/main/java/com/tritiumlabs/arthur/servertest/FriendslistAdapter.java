@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,24 +23,19 @@ public class FriendslistAdapter extends BaseAdapter {
 
     private static final String TAG = "FriendslistAdapter";
     private static LayoutInflater inflater = null;
-    ArrayList<String> friendlist;
+    ArrayList<Friend> friendlist;
 
-    public FriendslistAdapter(Activity activity, String friendString) {
+    public FriendslistAdapter(Activity activity, ArrayList<Friend> friendArray) {
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (friendString.equals("") || friendString.equals(","))
-        {
-            friendString = "NFPH";
-        }
-        else
-        {
-            friendlist = new ArrayList<String>(Arrays.asList(friendString.split(",")));
-        }
+
+        friendlist = friendArray;
 
 
-        Log.d(TAG, "uh idk maybe: " + friendString);
+
+
 
     }
 
@@ -70,16 +66,39 @@ public class FriendslistAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent)
     {
 
-        String strFriendName = friendlist.get(position);
+
         View vi = convertView;
         if (convertView == null)
         {
             vi = inflater.inflate(R.layout.friend_bubble,parent, false);
         }
+        if(friendlist != null)
+        {
+            Friend tempFriend = friendlist.get(position);
+            String onlineStatus = tempFriend.getOnlineStatus();
+            TextView friendName = (TextView) vi.findViewById(R.id.friend_name);
+            TextView friendStatus = (TextView) vi.findViewById(R.id.friend_status);
+            ImageView statusIcon = (ImageView) vi.findViewById(R.id.statusIcon);
 
-        TextView friendName = (TextView) vi.findViewById(R.id.friend_name);
-        friendName.setText(strFriendName);
-        Log.d(TAG, "inside getView method: " + strFriendName);
+            friendName.setText(tempFriend.getUserName());
+            friendStatus.setText(tempFriend.getEmoStatus());
+
+            if(onlineStatus.equals("available"))
+            {
+                statusIcon.setImageResource(R.drawable.online);
+            }
+            else if(onlineStatus.equals("away"))
+            {
+                statusIcon.setImageResource(R.drawable.away);
+            }
+            else
+            {
+                statusIcon.setImageResource(R.drawable.offline);
+            }
+        }
+
+
+
         return vi;
     }
 

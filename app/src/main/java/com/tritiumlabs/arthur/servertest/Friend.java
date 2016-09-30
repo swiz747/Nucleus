@@ -39,6 +39,8 @@ public class Friend {
     {
         this.userName = "default User Name";
         this.name = "default Name";
+        this.emoStatus = "derp status";
+        this.onlineStatus = "offline";
     }
 
     public String getUserName()

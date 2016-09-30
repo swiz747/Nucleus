@@ -313,7 +313,36 @@ public class MyXMPP {
     }
     //TODO: add documentation explaining why this is convoluted and retarded, sorry :( -AB
     //TODO: this is where we can add status updates super easy -AB
-    public String getRoster()
+
+    public ArrayList<Friend> getRoster()
+    {
+        Log.d("GET ROSTER: ","starting to get roster");
+        ArrayList<Friend> friendsList = new ArrayList<Friend>();
+
+        Roster roster = Roster.getInstanceFor(connection);
+        Collection<RosterEntry> entries = roster.getEntries();
+
+        for (RosterEntry entry : entries) {
+            String debugString = "";
+            Friend tempFriend = new Friend();
+            Presence tempPresence = roster.getPresence(entry.getUser());
+            tempFriend.setUserName(entry.getUser());
+            debugString += "username: "+entry.getUser() + ",";
+            tempFriend.setName(entry.getName());
+            debugString += "name: "+entry.getName() + ",";
+            tempFriend.setOnlineStatus(tempPresence.getMode().name());
+            debugString += "mode: "+tempPresence.getMode().name() + ",";
+            tempFriend.setEmoStatus(tempPresence.getStatus());
+            debugString += "Status: "+tempPresence.getStatus() + "";
+            friendsList.add(tempFriend);
+
+            Log.d("GET ROSTER: ", debugString);
+
+        }
+        return friendsList;
+    }
+
+    /**public String getRoster()
     {
         String strFriends= "";
         Log.d("GET ROSTER: ", strFriends);
@@ -329,7 +358,7 @@ public class MyXMPP {
         }
         strFriends = strFriends.substring(0,strFriends.length());
         return strFriends;
-    }
+    }*/
     public void addFriend(String friend)
     {
 

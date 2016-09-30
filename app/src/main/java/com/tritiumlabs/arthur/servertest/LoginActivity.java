@@ -42,8 +42,10 @@ public class LoginActivity extends AppCompatActivity {
 
         //TODO: this is for easy testing because im lazy -AB
 
-        userName.setText("phoneapp");
-        passwordText.setText("derpass747");
+        //userName.setText("phoneapp");
+        //passwordText.setText("derpass747");
+        userName.setText("tester");
+        passwordText.setText("fuck123");
 
         xmppConnection = MyXMPP.getInstance(this);
 
