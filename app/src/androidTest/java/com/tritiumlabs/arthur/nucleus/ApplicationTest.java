@@ -1,4 +1,4 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

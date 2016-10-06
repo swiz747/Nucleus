@@ -1,4 +1,4 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
 /**
  * Created by Arthur on 7/15/2016.

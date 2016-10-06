@@ -1,4 +1,4 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Arthur on 7/15/2016.

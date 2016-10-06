@@ -1,4 +1,4 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -9,12 +9,10 @@ import android.util.Log;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.XMPPException;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,13 +23,17 @@ public class LoginActivity extends AppCompatActivity {
     EditText passwordText;
     Button btnLogin;
     TextView signupLink;
+    CheckBox rememberPassword;
+    CheckBox stayLoggedIn;
 
 
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //TODO check database stuff right here and if user exists, apply settings -AB
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         userName = (EditText)findViewById(R.id.input_email);
@@ -39,7 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button)findViewById(R.id.btn_login);
         signupLink = (TextView)findViewById(R.id.link_signup);
 
-        //TODO: add option to remain logged in/  or remember username and PW
+        //TODO implement these -AB
+        rememberPassword = (CheckBox)findViewById(R.id.rememberPasswordBox);
+        stayLoggedIn = (CheckBox)findViewById(R.id.stayLoggedBox);
+
+
+
+
 
         //TODO: this is for easy testing because im lazy -AB
 

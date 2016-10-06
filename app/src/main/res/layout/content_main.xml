@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingTop="@dimen/fragment_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tritiumlabs.arthur.servertest.MainActivity"
+    tools:context="com.tritiumlabs.arthur.nucleus.MainActivity"
     tools:showIn="@layout/activity_main"
     android:clickable="false">
 

@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 
-import com.tritiumlabs.arthur.servertest.Friend;
-import com.tritiumlabs.arthur.servertest.FriendAddAdapter;
-import com.tritiumlabs.arthur.servertest.MyService;
-import com.tritiumlabs.arthur.servertest.R;
+import com.tritiumlabs.arthur.nucleus.Friend;
+import com.tritiumlabs.arthur.nucleus.FriendAddAdapter;
+import com.tritiumlabs.arthur.nucleus.MyService;
+import com.tritiumlabs.arthur.nucleus.R;
 
 import java.util.ArrayList;
 

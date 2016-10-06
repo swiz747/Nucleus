@@ -1,10 +1,8 @@
- package com.tritiumlabs.arthur.servertest;
+ package com.tritiumlabs.arthur.nucleus;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,20 +13,17 @@ import android.widget.Toast;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.iqregister.AccountManager;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
  public class SignupActivity extends AppCompatActivity
  {
+     //TODO PLEASE someone with enough autism make this shit line up like its supposed to -AB
     private static final String TAG = "SignupActivity";
-    private static final int REQUEST_LOGIN= 0;
-    public static Authenticator tempXMPPConnection;
+     private static final int REQUEST_LOGIN= 0;
      AccountManager accountManager;
     EditText nameText;
     EditText userEmail;
@@ -51,8 +46,8 @@ import java.util.Set;
         btnSignup = (Button)findViewById(R.id.btn_signup);
         loginLink = (TextView)findViewById(R.id.link_login);
 
-        //TODO: there are now 3 places that have this hard coded, we need a global constant or something, maybe pop it in an sqlite table? - AB
-        tempXMPPConnection = new Authenticator(this,"tritium","45.35.4.171",5222);
+
+
         //TODO: this is for easy testing because im lazy -AB
         nameText.setText("tester");
         userEmail.setText("Dildo@gmail.com");
@@ -81,7 +76,7 @@ import java.util.Set;
      public void onDestroy()
      {
          super.onDestroy();
-         tempXMPPConnection.disconnect();
+         MyXMPP.disconnect();
      }
 
     public void signup() {
@@ -106,8 +101,8 @@ import java.util.Set;
         final String password = passwordText.getText().toString();
         final Map<String,String> attributes = new HashMap<>();
         attributes.put("email", email);
-        tempXMPPConnection.connect("Signup");
-        accountManager = AccountManager.getInstance(tempXMPPConnection.connection);
+        MyXMPP.connect("Signup");
+        accountManager = AccountManager.getInstance(MyXMPP.connection);
 
 
 

@@ -1,10 +1,7 @@
 package fragments;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tritiumlabs.arthur.servertest.FriendslistAdapter;
-import com.tritiumlabs.arthur.servertest.MainActivity;
-import com.tritiumlabs.arthur.servertest.MyService;
-import com.tritiumlabs.arthur.servertest.R;
+import com.tritiumlabs.arthur.nucleus.FriendslistAdapter;
+import com.tritiumlabs.arthur.nucleus.MyService;
+import com.tritiumlabs.arthur.nucleus.R;
 
 
 

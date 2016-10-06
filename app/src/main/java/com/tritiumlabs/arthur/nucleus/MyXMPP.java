@@ -1,10 +1,8 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -12,7 +10,6 @@ import com.google.gson.Gson;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
-import org.jivesoftware.smack.PresenceListener;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.StanzaListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -22,7 +19,6 @@ import org.jivesoftware.smack.chat.ChatManager;
 import org.jivesoftware.smack.chat.ChatManagerListener;
 import org.jivesoftware.smack.chat.ChatMessageListener;
 import org.jivesoftware.smack.filter.StanzaTypeFilter;
-import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Stanza;
@@ -114,7 +110,7 @@ public class MyXMPP {
     }
 
 
-    public void disconnect() {
+    public static void disconnect() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -123,7 +119,7 @@ public class MyXMPP {
         }).start();
     }
 
-    public void connect(final String caller) {
+    public static void connect(final String caller) {
         Log.d("xmpp", "in connect chumk!");
 
 
@@ -520,6 +516,8 @@ public class MyXMPP {
             statusType = temp.getMode().name();
             sender = temp.getFrom();
             statusText = temp.getStatus();
+
+            //TODO change event names -AB
             Intent i = new Intent("custom-event-name");
             i.putExtra("from", sender);
             i.putExtra("message", statusText);
@@ -528,6 +526,7 @@ public class MyXMPP {
             Log.d("xmpp", "Status Type (mode)"+statusType );
 
             lbm.sendBroadcast(i);
+
 
 
 

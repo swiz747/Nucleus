@@ -1,50 +1,39 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
-import android.*;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.tritiumlabs.arthur.servertest.interfaces.ExternalDBInterface;
+import com.tritiumlabs.arthur.nucleus.interfaces.ExternalDBInterface;
 
 import java.util.List;
 
 import fragments.Chats;
 import fragments.FriendAdd;
 import fragments.FriendsList;
-import fragments.MapHolder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,13 +52,20 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progress;
     private GoogleMap googleMap;
     private MyService mService;
-    private NotificationCompat.Builder notification;
-    private static final int uniqueID = 389234786;
     private Double myLatitude;
     private Double myLongitude;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
+        //Checking extras in intents for more dynamic responses
+       if(getIntent().hasExtra("notification"))
+       {
+           //TODO add notification filtering here
+       }
+
+
 
         Log.d(TAG, "on create method");
         Intent i = new Intent(this, MyService.class);
@@ -79,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        notification = new NotificationCompat.Builder(this);
-        notification.setAutoCancel(true);
 
 
     }
@@ -119,29 +113,12 @@ public class MainActivity extends AppCompatActivity {
             // LocalDBHandler handler = LocalDBHandler.getInstance(this);
             //handler.getLocalSettings();
 
-            //notification stuff
-            int color = 0xFF00FF00;
-
-            notification.setSmallIcon(R.drawable.ic_stat_testicon);
-            //notification.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_stat_testicon));
-            notification.setTicker("im a ticker");
-            notification.setColor(color);
-            notification.setWhen(System.currentTimeMillis());
-            notification.setContentTitle("Im The Title, Nigga");
-            notification.setContentText("Im the body of the notification!");
-            Intent intent = new Intent(this, MainActivity.class);
-            PendingIntent pendIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            notification.setContentIntent(pendIntent);
-
-            // issues notification
-            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            nm.notify(uniqueID, notification.build());
+            //TODO send to settings fragment.
 
 
             return true;
         } else if (id == R.id.fuck_everything) {
-            //TODO for when you need to fuck everyhting -AB
+            //for when you need to fuck everything -AB
             LocalDBHandler handler = LocalDBHandler.getInstance(this);
             handler.fuckeverything();
             return true;
@@ -171,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             mBounded = true;
             Log.d(TAG, "Connected the service");
 
-            //TODO this connects the friendslist fragment, probably -AB
+            //this connects the friendslist fragment, probably -AB
             openFriendslist();
 
         }

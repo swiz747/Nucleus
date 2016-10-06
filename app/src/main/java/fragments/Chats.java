@@ -1,6 +1,5 @@
 package fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,19 +10,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.tritiumlabs.arthur.servertest.ChatAdapter;
-import com.tritiumlabs.arthur.servertest.ChatMessage;
-import com.tritiumlabs.arthur.servertest.CommonMethods;
-import com.tritiumlabs.arthur.servertest.LocalDBHandler;
-import com.tritiumlabs.arthur.servertest.MainActivity;
-import com.tritiumlabs.arthur.servertest.MyService;
-import com.tritiumlabs.arthur.servertest.R;
-
-import org.jivesoftware.smack.chat.Chat;
-import org.jivesoftware.smack.chat.ChatManager;
+import com.tritiumlabs.arthur.nucleus.ChatAdapter;
+import com.tritiumlabs.arthur.nucleus.ChatMessage;
+import com.tritiumlabs.arthur.nucleus.LocalDBHandler;
+import com.tritiumlabs.arthur.nucleus.R;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Chats extends Fragment {
 

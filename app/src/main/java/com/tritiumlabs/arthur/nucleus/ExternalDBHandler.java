@@ -1,9 +1,9 @@
-package com.tritiumlabs.arthur.servertest;
+package com.tritiumlabs.arthur.nucleus;
 
 
 import android.util.Log;
 
-import com.tritiumlabs.arthur.servertest.interfaces.ExternalDBInterface;
+import com.tritiumlabs.arthur.nucleus.interfaces.ExternalDBInterface;
 
 import java.util.List;
 
