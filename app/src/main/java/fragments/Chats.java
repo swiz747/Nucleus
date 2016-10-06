@@ -16,7 +16,11 @@ import com.tritiumlabs.arthur.servertest.ChatMessage;
 import com.tritiumlabs.arthur.servertest.CommonMethods;
 import com.tritiumlabs.arthur.servertest.LocalDBHandler;
 import com.tritiumlabs.arthur.servertest.MainActivity;
+import com.tritiumlabs.arthur.servertest.MyService;
 import com.tritiumlabs.arthur.servertest.R;
+
+import org.jivesoftware.smack.chat.Chat;
+import org.jivesoftware.smack.chat.ChatManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -94,8 +98,8 @@ public class Chats extends Fragment {
             msg_edittext.setText("");
             chatAdapter.add(chatMessage);
             chatAdapter.notifyDataSetChanged();
-            MainActivity activity = ((MainActivity) getActivity());
-            activity.getmService().xmpp.sendMessage(chatMessage);
+            //TODO send Message here -AB
+            //MyService.xmpp.sendMessage(chatMessage);
         }
     }
     public void setUser1(String user1)

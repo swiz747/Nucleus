@@ -19,7 +19,7 @@ import org.jivesoftware.smackx.receipts.DeliveryReceiptManager;
 import org.jivesoftware.smackx.receipts.ReceiptReceivedListener;
 
 import java.io.IOException;
-
+@Deprecated
 public class Authenticator {
 
     public static boolean connected = false;

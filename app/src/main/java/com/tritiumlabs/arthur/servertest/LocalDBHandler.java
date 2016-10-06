@@ -14,7 +14,7 @@ import java.util.List;
 public class LocalDBHandler extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Database instance
     private static LocalDBHandler instance = null;
     // Database Name

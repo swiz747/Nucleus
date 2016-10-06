@@ -1,6 +1,7 @@
 package com.tritiumlabs.arthur.servertest;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -83,68 +84,52 @@ public class LoginActivity extends AppCompatActivity {
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
-        //TODO: why the fuck is this not working??!?!?!?!? jesus fucking christ -AB
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
+
 
         final String user = userName.getText().toString();
         final String password = passwordText.getText().toString();
         xmppConnection.setLoginCreds(user, password);
 
-        // TODO: move to authenticator class for organization -AB
+        //TODO make login system more robust -AB
 
-        new android.os.Handler().post(
-                new Runnable() {
-                    public void run() {
+        AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
 
-                        xmppConnection.connect("Login");
-                        //holy shit we need to revisit this this will hang forever if you fuck up
-                        long startTime = System.currentTimeMillis(); //fetch starting time
-                        boolean success = false;
-                        while(!xmppConnection.getLoggedIn())
-                        {
-                            if(!((System.currentTimeMillis()-startTime)<10000))
-                            {
-                                success = false;
-                                break;
-                            }
-                            else
-                            {
-                                success = true;
-                            }
-                        }
-
-                        if (success)
-                        {
-                            onLoginSuccess(user, password);
-                        }
-                        else
-                        {
-                            onLoginFailed("timeout");
-                        }
-
-
-                        progressDialog.dismiss();
-                    }
-                });
-    }
-
-    //TODO: holy shit this code is really cool -AB
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // fill out thier username for them
-                //Bundle extras = data.getExtras();
-                //userName.setText(extras.getString("username"));
-                Log.d("OVERHERE", "did this bullshit actually work?");
-
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                progressDialog.setIndeterminate(true);
+                progressDialog.setMessage("Authenticating...");
+                progressDialog.show();
             }
-        }
+
+            @Override
+            protected Boolean doInBackground(Void... params)
+            {
+
+                MyService.xmpp.connect("login");
+                return MyService.xmpp.getLoggedIn();
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result)
+            {
+                progressDialog.dismiss();
+                if(result)
+                {
+                    onLoginSuccess(user,password);
+                }
+                else
+                {
+                    onLoginFailed("Bad Credentials");
+                }
+            }
+        };
+        connectionThread.execute();
     }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -157,8 +142,8 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setEnabled(true);
         //TODO add username and password to DB -AB
-        xmppConnection.dbHandler.setUserName(user);
-        xmppConnection.dbHandler.setUserPassword(password);
+        MyXMPP.dbHandler.setUserName(user);
+        MyXMPP.dbHandler.setUserPassword(password);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -174,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean valid = true;
 
         String email = userName.getText().toString();
-        String password = passwordText.getText().toString();
+
 
         if (email.isEmpty() ) {
             userName.setError("enter a valid username");
@@ -183,12 +168,6 @@ public class LoginActivity extends AppCompatActivity {
             userName.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 20) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
-            passwordText.setError(null);
-        }
 
         return valid;
     }

@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.fuck_everything) {
             //TODO for when you need to fuck everyhting -AB
-            //LocalDBHandler handler = LocalDBHandler.getInstance(this);
-            //handler.fuckeverything();
+            LocalDBHandler handler = LocalDBHandler.getInstance(this);
+            handler.fuckeverything();
             return true;
         } else if (id == R.id.add_friend) {
             //TODO temporary add friend

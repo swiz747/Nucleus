@@ -11,7 +11,7 @@ import com.tritiumlabs.arthur.servertest.FriendslistAdapter;
 import com.tritiumlabs.arthur.servertest.MainActivity;
 import com.tritiumlabs.arthur.servertest.R;
 
-
+@Deprecated
 public class SomethingElse extends Fragment {
 
 
