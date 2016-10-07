@@ -3,6 +3,8 @@ package com.tritiumlabs.arthur.nucleus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -37,6 +39,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import fragments.Chats;
+
 public class MyXMPP {
 
     private static boolean connected = false;
@@ -60,7 +64,7 @@ public class MyXMPP {
     private static LocalBroadcastManager lbm;
     private Gson gson;
 
-    //TODO: NEVER USE THE CONSTRUCTOR FOR THIS CLASS USE THE GET INSTANCE METHOD -AB
+    //NEVER USE THE CONSTRUCTOR FOR THIS CLASS USE THE GET INSTANCE METHOD -AB
 
     private MyXMPP(Context context, String domain, String host, int port) {
         MyXMPP.serverAddress = domain;
@@ -149,9 +153,15 @@ public class MyXMPP {
 
     }
 
+
+
+
+
     //Start of helper methods/functions -AB
-    public Message createMessage(String to, String id, String body, String Extras)
+    public Message createMessage(ChatMessage chatMessage)
     {
+        String body = gson.toJson(chatMessage);
+        ChatManager.getInstanceFor(connection).getThreadChat(chatMessage.getChatID());
         return null;
     }
 
@@ -160,6 +170,7 @@ public class MyXMPP {
 
 
         Presence sendPresence = new Presence(Presence.Type.valueOf(type),body, 1, Presence.Mode.valueOf(mode));
+        sendPresence.setTo(to);
 
         return sendPresence;
     }
@@ -178,11 +189,7 @@ public class MyXMPP {
             login();
         }
     }
-    public void sendTypingNotification(String to)
-    {
-        Presence sendPresence = new Presence(Presence.Type.available,"typing", 1, Presence.Mode.chat);
-        sendPresence.setTo(to);
-    }
+
     //end helper methods/functions
 
 
@@ -219,7 +226,7 @@ public class MyXMPP {
     public static XMPPTCPConnection getConnection() {
         return connection;
     }
-
+    //TODO only add if not on roster -AB
     public void addFriend(String friend) {
 
         Roster roster = Roster.getInstanceFor(connection);
@@ -243,6 +250,9 @@ public class MyXMPP {
 
     }
 
+
+    //TODO exclude people on roster -AB
+    //TODO Try/catch should break if failed
     public ArrayList<Friend> searchUsers(String userName)
     {
         ArrayList<Friend> searchList = new ArrayList<Friend>();
@@ -409,19 +419,16 @@ public class MyXMPP {
             //initialize listeners -AB
             chatManagerListener = new XMPPChatManagerListener();
             messageListener = new XMPPMessageListener();
-            presenceListener = new XMPPStanzaListener();
             rosterListener = new XMPPRosterListener();
 
 
 
-            //TODO: update this to only look for typing notification -AB
-            connection.addAsyncStanzaListener(presenceListener, StanzaTypeFilter.PRESENCE);
             Roster.getInstanceFor(connection).setSubscriptionMode(Roster.SubscriptionMode.manual);
             Roster.getInstanceFor(connection).addRosterListener(rosterListener);
             ChatManager.getInstanceFor(connection).addChatListener(chatManagerListener);
 
 
-
+            //TODO get rid of the derp -AB
             //let friends know youre online
             Stanza onlineNow = new Presence(Presence.Type.available,"derp", 1, Presence.Mode.available);
             try {
@@ -462,7 +469,8 @@ public class MyXMPP {
     }
 
     private class XMPPMessageListener implements ChatMessageListener {
-        public XMPPMessageListener() {
+        public XMPPMessageListener()
+        {
             Log.d("xmpp", "im a message listener!");
         }
 
@@ -471,6 +479,42 @@ public class MyXMPP {
         public void processMessage(Chat chat, Message message) {
             Log.i("MyXMPP_MESSAGE_LISTENER", "Xmpp message received: '"
                     + message);
+
+            if (message.getType() == Message.Type.chat && message.getBody() != null)
+            {
+                //TODO if this actually works then Gson library is straight up fucking magic -AB
+                final ChatMessage chatMessage = gson.fromJson(
+                        message.getBody(), ChatMessage.class);
+                chatMessage.setChatID(message.getThread());
+
+                processSingleMessage(chatMessage);
+            }
+            else if (message.getType() == Message.Type.groupchat && message.getBody() != null)
+            {
+                //TODO Implement groupchat functionality -AB
+                processGroupMessage();
+            }
+            //add elseifs for different types of chats
+        }
+        private void processSingleMessage(final ChatMessage chatMessage)
+        {
+            chatMessage.setIsMine(false);
+
+            //holy shit i hope this works -AB
+            dbHandler.addMessage(chatMessage);
+            Chats.chatlist.add(chatMessage);
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                @Override
+                public void run() {
+                    Chats.chatAdapter.notifyDataSetChanged();
+
+                }
+            });
+        }
+        private void processGroupMessage()
+        {
+
         }
     }
 

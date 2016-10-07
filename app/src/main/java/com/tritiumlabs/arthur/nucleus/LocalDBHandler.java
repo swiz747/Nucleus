@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class LocalDBHandler extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     // Database instance
     private static LocalDBHandler instance = null;
     // Database Name
@@ -40,6 +40,9 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     private static final String KEY_SET_DOMAIN = "settings_domain";
     private static final String KEY_SET_USERNAME = "settings_username";
     private static final String KEY_SET_PASSWORD = "settings_password";
+    //TODO implement this -AB
+    private static final String KEY_SET_REMEMBER = "settings_remember";
+    private static final String KEY_SET_STAYLOGGED = "settings_staylogged";
 
 
 
@@ -66,7 +69,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     {
         //create message table
         String CREATE_MESSAGES_TABLE = "CREATE TABLE " + TABLE_MESSAGES + "("
-                + KEY_MSG_ID + " INTEGER PRIMARY KEY," + KEY_MSG_CHAT_ID + " INTEGER,"
+                + KEY_MSG_ID + " INTEGER PRIMARY KEY," + KEY_MSG_CHAT_ID + " VARCHAR,"
                 + KEY_MSG_SENDER + " VARCHAR," + KEY_MSG_RECIEVER + " VARCHAR," + KEY_MSG_BODY + " TEXT,"
                 + KEY_MSG_SENTTIME + " DATETIME,"+ KEY_MSG_RECVTIME + " DATETIME"+ KEY_MSG_CREATETIME + " DATETIME"+")";
 
@@ -75,7 +78,8 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         String CREATE_SETTINGS_TABLE = "CREATE TABLE " + TABLE_SETTINGS + "("
                 + KEY_SET_ID + " INTEGER PRIMARY KEY," + KEY_SET_DOMAIN + " VARCHAR,"
                 + KEY_SET_PORT + " INTEGER," + KEY_SET_SERVER + " VARCHAR,"
-                + KEY_SET_USERNAME + " VARCHAR," + KEY_SET_PASSWORD + " VARCHAR" + ")";
+                + KEY_SET_USERNAME + " VARCHAR," + KEY_SET_PASSWORD + " VARCHAR,"
+                + KEY_SET_REMEMBER + " VARCHAR,"+ KEY_SET_STAYLOGGED + " VARCHAR" + ")";
 
 
 
@@ -93,10 +97,11 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         values.put(KEY_SET_SERVER, "45.35.4.171");
         values.put(KEY_SET_USERNAME, "");
         values.put(KEY_SET_PASSWORD, "");
+        values.put(KEY_SET_REMEMBER, "N");
+        values.put(KEY_SET_STAYLOGGED, "N");
 
-        // Inserting Row
-        long wat = db.insert(TABLE_SETTINGS, null, values);
-        Log.d("FUCKING LOOK AT ME", String.valueOf(wat));
+        // Inserting default settings
+        db.insert(TABLE_SETTINGS, null, values);
 
 
     }
@@ -146,12 +151,12 @@ public class LocalDBHandler extends SQLiteOpenHelper {
          // Closing database connection
     }
 
-    public  ArrayList<ChatMessage> getChatMessages(long chat_id) {
+    public  ArrayList<ChatMessage> getChatMessagesbyID(String chat_id) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
 
         String selectQuery = "SELECT * FROM " + TABLE_MESSAGES + " WHERE "
-                + KEY_MSG_CHAT_ID + " = " + chat_id;
+                + KEY_MSG_RECIEVER + " = '" + chat_id + "'";
 
         Log.e("LocalDBHandler", selectQuery);
 
@@ -164,7 +169,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
                 do {
                     ChatMessage msg = new ChatMessage();
                     msg.setMsgID(c.getInt((c.getColumnIndex(KEY_MSG_ID))));
-                    msg.setChatID(c.getInt((c.getColumnIndex(KEY_MSG_CHAT_ID))));
+                    msg.setChatID(c.getString((c.getColumnIndex(KEY_MSG_CHAT_ID))));
                     msg.setBody((c.getString(c.getColumnIndex(KEY_MSG_BODY))));
                     msg.setSender((c.getString(c.getColumnIndex(KEY_MSG_SENDER))));
                     msg.setReceiver((c.getString(c.getColumnIndex(KEY_MSG_RECIEVER))));
@@ -184,7 +189,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public  ArrayList<ChatMessage> getChatMessages(String friend) {
+    public  ArrayList<ChatMessage> getChatMessagesbyUser(String friend) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
 
@@ -202,7 +207,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
                 do {
                     ChatMessage msg = new ChatMessage();
                     msg.setMsgID(c.getInt((c.getColumnIndex(KEY_MSG_ID))));
-                    msg.setChatID(c.getInt((c.getColumnIndex(KEY_MSG_CHAT_ID))));
+                    msg.setChatID(c.getString((c.getColumnIndex(KEY_MSG_CHAT_ID))));
                     msg.setSender((c.getString(c.getColumnIndex(KEY_MSG_SENDER))));
                     if (msg.getSender().equals(getUsername()))
                     {
@@ -233,6 +238,34 @@ public class LocalDBHandler extends SQLiteOpenHelper {
 
 
         return messages;
+    }
+
+    public String getChatIDByUser(String friend) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String chatID = "";
+
+        String selectQuery = "SELECT DISTINCT " + KEY_MSG_CHAT_ID + " FROM " + TABLE_MESSAGES + " WHERE "
+                + KEY_MSG_SENDER + " = '" + friend + "' OR " + KEY_MSG_RECIEVER + " = '" + friend + "'";
+
+        Log.e("LocalDBHandler", selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+        {
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+
+                   chatID = c.getString((c.getColumnIndex(KEY_MSG_CHAT_ID)));
+
+                } while (c.moveToNext());
+            }
+        }
+
+
+
+        return chatID;
     }
 
     //TODO make these function, nigger -AB
@@ -284,8 +317,6 @@ public class LocalDBHandler extends SQLiteOpenHelper {
             }
         }
 
-
-        Log.d("look at me motherfucker", returnValue);
         return returnValue;
     }
     public String getLocalSettings()

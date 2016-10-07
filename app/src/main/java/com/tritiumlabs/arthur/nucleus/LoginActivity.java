@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+
         userName = (EditText)findViewById(R.id.input_email);
         passwordText = (EditText)findViewById(R.id.input_password);
         btnLogin = (Button)findViewById(R.id.btn_login);
@@ -50,11 +51,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //TODO: this is for easy testing because im lazy -AB
+        if(getIntent().hasExtra("signup"))
+        {
+            userName.setText(getIntent().getStringExtra("signupName"));
+        }
+        else
+        {
+            //userName.setText("phoneapp");
+            //passwordText.setText("derpass747");
+            userName.setText("tester");
+            passwordText.setText("fuck123");
+        }
 
-        //userName.setText("phoneapp");
-        //passwordText.setText("derpass747");
-        userName.setText("tester");
-        passwordText.setText("fuck123");
+
 
         xmppConnection = MyXMPP.getInstance(this);
 
@@ -115,8 +124,8 @@ public class LoginActivity extends AppCompatActivity {
             protected Boolean doInBackground(Void... params)
             {
 
-                MyService.xmpp.connect("login");
-                return MyService.xmpp.getLoggedIn();
+                xmppConnection.connect("login");
+                return xmppConnection.getLoggedIn();
             }
 
             @Override

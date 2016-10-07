@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.tritiumlabs.arthur.nucleus.ChatAdapter;
 import com.tritiumlabs.arthur.nucleus.ChatMessage;
 import com.tritiumlabs.arthur.nucleus.LocalDBHandler;
+import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 
 import java.util.ArrayList;
@@ -51,9 +52,7 @@ public class Chats extends Fragment {
             public void onClick(View v)
             {
                 //sendButton.setImageResource(R.drawable.send_selected);
-                sendTextMessage(v);
-
-
+                sendTextMessage(v,dbHandler.getChatIDByUser(user2));
 
             }
         });
@@ -63,7 +62,7 @@ public class Chats extends Fragment {
         msgListView.setStackFromBottom(true);
 
         chatlist = new ArrayList<ChatMessage>();
-        chatlist = dbHandler.getChatMessages(user2);
+        chatlist = dbHandler.getChatMessagesbyUser(user2);
         chatAdapter = new ChatAdapter(getActivity(), chatlist);
         msgListView.setAdapter(chatAdapter);
         //dbHandler.fuckeverything();
@@ -75,14 +74,14 @@ public class Chats extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
     }
 
-    public void sendTextMessage(View v) {
+    public void sendTextMessage(View v, String chatID) {
         String message = msg_edittext.getEditableText().toString();
         if (!message.equalsIgnoreCase("")) {
             final ChatMessage chatMessage = new ChatMessage();
 
             chatMessage.setBody(message);
             //chatMessage.setSentTime(CommonMethods.getCurrentDateTime());
-            chatMessage.setChatID(1);
+            chatMessage.setChatID(chatID);
             chatMessage.setSender(user1);
             chatMessage.setReceiver(user2);
             chatMessage.setIsMine(true);
@@ -91,7 +90,7 @@ public class Chats extends Fragment {
             chatAdapter.add(chatMessage);
             chatAdapter.notifyDataSetChanged();
             //TODO send Message here -AB
-            //MyService.xmpp.sendMessage(chatMessage);
+            MyService.xmpp.sendMessage(MyService.xmpp.createMessage(chatMessage));
         }
     }
     public void setUser1(String user1)

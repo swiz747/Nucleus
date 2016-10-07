@@ -143,7 +143,7 @@ import java.util.Set;
 
 
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.putExtra("username", name);
+        intent.putExtra("signupName", name);
         setResult(RESULT_OK, intent);
         startActivity(intent);
         finish();

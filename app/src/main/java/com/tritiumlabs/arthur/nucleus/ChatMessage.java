@@ -12,7 +12,7 @@ public class ChatMessage {
     private String recvTime;
     private String createTime;
     private int msgID;
-    private int chatID;
+    private String chatID;
     private boolean isMine;
 
     public ChatMessage(String Sender, String Receiver, String messageString, String sentTime, String recvTime, String createTime) {
@@ -81,11 +81,11 @@ public class ChatMessage {
         this.msgID = msgID;
     }
 
-    public int getChatID() {
+    public String getChatID() {
         return chatID;
     }
 
-    public void setChatID(int chatID) {
+    public void setChatID(String chatID) {
         this.chatID = chatID;
     }
 
