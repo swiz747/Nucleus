@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -184,6 +185,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void openMapFragment() {
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Log.d("fuckmesilly", "shit titty");
+        android.support.v4.app.Fragment temp = (android.support.v4.app.Fragment)getSupportFragmentManager().findFragmentByTag("homeScreen");
+        if(temp!=null && temp.isVisible())
+        {
+            Log.d("fuckmesilly", "nigga was visible");
+        }
+        else
+        {
+            Log.d("fuckmesilly", "nigga was invisible");
+
+        }
+        super.onBackPressed();
     }
 
 

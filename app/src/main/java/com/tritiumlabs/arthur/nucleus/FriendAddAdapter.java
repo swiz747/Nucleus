@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,24 +52,49 @@ public class FriendAddAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent)
     {
 
-        final Friend user = UsersList.get(position);
+
         View vi = convertView;
         if (convertView == null)
         {
             vi = inflater.inflate(R.layout.friend_add_bubble,parent, false);
         }
+        if(UsersList != null)
+        {
+            final Friend user = UsersList.get(position);
+            String onlineStatus = user.getOnlineStatus();
+            TextView friendName = (TextView) vi.findViewById(R.id.friend_name);
+            TextView friendStatus = (TextView) vi.findViewById(R.id.friend_status);
+            ImageView statusIcon = (ImageView) vi.findViewById(R.id.friendPic);
 
-        TextView friendName = (TextView) vi.findViewById(R.id.friend_name);
-        ImageButton addButton = (ImageButton) vi.findViewById(R.id.addFriendButton);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("click from", user.getName());
-                xmpp.addFriend(user.getName());
+            friendName.setText(user.getUserName());
+            friendStatus.setText(user.getEmoStatus());
+
+            if(onlineStatus.equals("available"))
+            {
+                statusIcon.setImageResource(R.drawable.online);
             }
-        });
+            else if(onlineStatus.equals("away"))
+            {
+                statusIcon.setImageResource(R.drawable.away);
+            }
+            else
+            {
+                statusIcon.setImageResource(R.drawable.offline);
+            }
 
-        friendName.setText(user.getName());
+            final ImageButton addButton = (ImageButton) vi.findViewById(R.id.addFriendButton);
+            addButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("click from", user.getName());
+                    xmpp.addFriend(user.getName());
+                    addButton.setEnabled(false);
+                }
+            });
+
+        }
+
+
         return vi;
     }
 

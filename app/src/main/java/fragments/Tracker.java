@@ -13,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tritiumlabs.arthur.nucleus.LocationInfo;
 import com.tritiumlabs.arthur.nucleus.LocationRetriever;
 import com.tritiumlabs.arthur.nucleus.MainActivity;
+import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 import com.tritiumlabs.arthur.nucleus.interfaces.ExternalDBInterface;
 
@@ -33,12 +37,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.R.id.progress;
+import static com.tritiumlabs.arthur.nucleus.MyXMPP.dbHandler;
+
 
 /**
  * Created by Arthur on 10/6/2016.
  */
 
-public class Tracker extends android.support.v4.app.Fragment{
+public class Tracker extends android.support.v4.app.Fragment {
 
     private static final String MAP_FRAGMENT_TAG = "map";
     private LocationRetriever locationRetriever;
@@ -48,24 +54,18 @@ public class Tracker extends android.support.v4.app.Fragment{
     private Double myLatitude;
     private Double myLongitude;
     private GoogleMap googleMap;
+    MapView mapView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Tritium Tracker");
+        View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        SupportMapFragment mapFragment = (SupportMapFragment)
-                getActivity().getSupportFragmentManager().findFragmentByTag(MAP_FRAGMENT_TAG);
+        mapView = (MapView) v.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
 
-        // We only create a fragment if it doesn't already exist.
-        if (mapFragment == null) {
-            mapFragment = SupportMapFragment.newInstance();
-            Log.d("nigga","inserting fragment");
-            FragmentTransaction fragmentTransaction =
-                    getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.fragContainer, mapFragment, MAP_FRAGMENT_TAG);
-            fragmentTransaction.commit();
-        }
+
+
         progress = new ProgressDialog(getActivity());
         locationRetriever = LocationRetriever.getInstance(getActivity());
         AsyncTask<Void, Void, Boolean> retrieveLocation = new AsyncTask<Void, Void, Boolean>()
@@ -107,12 +107,12 @@ public class Tracker extends android.support.v4.app.Fragment{
         };
         retrieveLocation.execute();
 
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
+
+        mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
+
                 googleMap = mMap;
-
-
 
                 if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
@@ -125,12 +125,14 @@ public class Tracker extends android.support.v4.app.Fragment{
                     return;
                 }
 
-
-
             }
         });
 
-        return null;
+        MapsInitializer.initialize(this.getActivity());
+
+
+
+        return v;
     }
     public void setMapCamera()
     {
@@ -146,12 +148,14 @@ public class Tracker extends android.support.v4.app.Fragment{
     {
         //googleMap.addMarker(new MarkerOptions().position(warwick).title("dildo").snippet("fucking gorton pond or some shit"));
     }
+
+
     public void updateLocation(double latitude, double longitude)
     {
         ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);
         //TODO change username to be dynamic -AB
         final Call<List<LocationInfo>> call =
-                dbInterface.setLocation("phoneapp", latitude, longitude);
+                dbInterface.setLocation(dbHandler.getUsername(), latitude, longitude);
 
 
         call.enqueue(new Callback<List<LocationInfo>>() {
@@ -168,6 +172,29 @@ public class Tracker extends android.support.v4.app.Fragment{
                 Log.d("Tracker", t.getMessage());
             }
         });
+    }
+    @Override
+    public void onResume() {
+        mapView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }
 

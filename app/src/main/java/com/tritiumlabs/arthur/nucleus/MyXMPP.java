@@ -20,6 +20,8 @@ import org.jivesoftware.smack.chat.Chat;
 import org.jivesoftware.smack.chat.ChatManager;
 import org.jivesoftware.smack.chat.ChatManagerListener;
 import org.jivesoftware.smack.chat.ChatMessageListener;
+import org.jivesoftware.smack.filter.AndFilter;
+import org.jivesoftware.smack.filter.PresenceTypeFilter;
 import org.jivesoftware.smack.filter.StanzaTypeFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
@@ -57,7 +59,7 @@ public class MyXMPP {
     private static boolean instanceCreated = false;
     public static LocalDBHandler dbHandler;
     private XMPPConnectionListener connectionListener;
-    private XMPPStanzaListener presenceListener;
+    private XMPPSubscriptionListener subscriptionListener;
     private XMPPChatManagerListener chatManagerListener;
     private XMPPMessageListener messageListener;
     private XMPPRosterListener rosterListener;
@@ -232,6 +234,7 @@ public class MyXMPP {
         Roster roster = Roster.getInstanceFor(connection);
         try {
             if (connection.isAuthenticated()) {
+                //TODO this is wrong, send subscribe presence then add info to a pending friend request sqlite table
                 roster.createEntry(friend + "@tritium", null, null);
             } else {
                 login();
@@ -296,7 +299,6 @@ public class MyXMPP {
                     String value = iterator.next();
                     friend.setName(value);
                     searchList.add(friend);
-                    //Do what you want
                 }
             }
         }
@@ -352,6 +354,16 @@ public class MyXMPP {
 
         }
         return friendsList;
+    }
+
+    public ArrayList<Friend> getRequests()
+    {
+        ArrayList<Friend> requestList = new ArrayList<Friend>();
+        Roster.getInstanceFor(connection);
+
+
+
+        return requestList;
     }
 
     //Reconnection manager, its weird code i dont understand but it makes magic happen i think -AB
@@ -420,7 +432,10 @@ public class MyXMPP {
             chatManagerListener = new XMPPChatManagerListener();
             messageListener = new XMPPMessageListener();
             rosterListener = new XMPPRosterListener();
+            subscriptionListener = new XMPPSubscriptionListener();
 
+            connection.addAsyncStanzaListener(subscriptionListener, new AndFilter(PresenceTypeFilter.SUBSCRIBE, PresenceTypeFilter.SUBSCRIBED,
+                    PresenceTypeFilter.UNSUBSCRIBE, PresenceTypeFilter.UNSUBSCRIBED));
 
 
             Roster.getInstanceFor(connection).setSubscriptionMode(Roster.SubscriptionMode.manual);
@@ -441,15 +456,32 @@ public class MyXMPP {
             loggedin = true;
         }
     }
-    //TODO: update this to only look for typing notification -AB
-    //Listens for all received presence Packets -AB
-    private class XMPPStanzaListener implements StanzaListener {
+
+    //listens for subscriptions
+    private class XMPPSubscriptionListener implements StanzaListener {
 
         @Override
         public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
             Presence temp = (Presence) packet;
 
             Log.d("xmpp", "im processing a packet i guess: " + temp.getStanzaId() + ": status from "+ temp.getFrom() + " :" + temp.getStatus());
+
+            if(temp.getType() == Presence.Type.subscribe)
+            {
+                Log.d("xmpp", "some nigga subscribed to me");
+            }
+            else if(temp.getType() == Presence.Type.subscribed)
+            {
+                Log.d("xmpp", "some nigga accepted my subscription");
+            }
+            else if(temp.getType() == Presence.Type.unsubscribe)
+            {
+                Log.d("xmpp", "some nigga unsubscribed to me");
+            }
+            else
+            {
+                Log.d("xmpp", "i have no idea when this fires");
+            }
         }
 
     }

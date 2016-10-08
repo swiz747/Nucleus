@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=" Theme:"
-        android:id="@+id/textView"
-        android:singleLine="false" />
+        android:id="@+id/textView" />
 
     <Space
         android:layout_width="20px"
@@ -42,12 +41,11 @@
         android:contextClickable="false"
         android:background="#999999"
         android:textColor="#FFFFFF"
-        android:singleLine="false"
         android:clickable="true" />
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="30px" />
+        android:layout_height="30dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -55,14 +53,13 @@
         android:text=" Notifications"
         android:id="@+id/notif_button"
         android:textAlignment="textStart"
-        android:singleLine="false"
         android:textColor="#FFFFFF"
         android:background="#999999"
         android:clickable="true" />
 
     <Space
-        android:layout_width="20px"
-        android:layout_height="5px" />
+        android:layout_width="20dp"
+        android:layout_height="5dp" />
 
     <Button
         android:layout_width="match_parent"
