@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 
 import com.tritiumlabs.arthur.nucleus.Friend;
-import com.tritiumlabs.arthur.nucleus.FriendAddAdapter;
+import com.tritiumlabs.arthur.nucleus.adapters.FriendAddAdapter;
 import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 

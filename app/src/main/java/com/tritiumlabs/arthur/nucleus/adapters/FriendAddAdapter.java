@@ -1,4 +1,4 @@
-package com.tritiumlabs.arthur.nucleus;
+package com.tritiumlabs.arthur.nucleus.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.tritiumlabs.arthur.nucleus.Friend;
+import com.tritiumlabs.arthur.nucleus.MyXMPP;
+import com.tritiumlabs.arthur.nucleus.R;
 
 import java.util.ArrayList;
 
@@ -63,11 +67,9 @@ public class FriendAddAdapter extends BaseAdapter {
             final Friend user = UsersList.get(position);
             String onlineStatus = user.getOnlineStatus();
             TextView friendName = (TextView) vi.findViewById(R.id.friend_name);
-            TextView friendStatus = (TextView) vi.findViewById(R.id.friend_status);
             ImageView statusIcon = (ImageView) vi.findViewById(R.id.friendPic);
 
             friendName.setText(user.getUserName());
-            friendStatus.setText(user.getEmoStatus());
 
             if(onlineStatus.equals("available"))
             {
@@ -87,7 +89,7 @@ public class FriendAddAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Log.d("click from", user.getName());
-                    xmpp.addFriend(user.getName());
+                    xmpp.addFriend(user.getJID());
                     addButton.setEnabled(false);
                 }
             });

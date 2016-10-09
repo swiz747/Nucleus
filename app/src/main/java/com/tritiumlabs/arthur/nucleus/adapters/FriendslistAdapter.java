@@ -1,4 +1,4 @@
-package com.tritiumlabs.arthur.nucleus;
+package com.tritiumlabs.arthur.nucleus.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.tritiumlabs.arthur.nucleus.Friend;
+import com.tritiumlabs.arthur.nucleus.R;
 
 import java.util.ArrayList;
 

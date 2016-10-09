@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.tritiumlabs.arthur.nucleus.ChatAdapter;
+import com.tritiumlabs.arthur.nucleus.adapters.ChatAdapter;
 import com.tritiumlabs.arthur.nucleus.ChatMessage;
 import com.tritiumlabs.arthur.nucleus.LocalDBHandler;
 import com.tritiumlabs.arthur.nucleus.MyService;

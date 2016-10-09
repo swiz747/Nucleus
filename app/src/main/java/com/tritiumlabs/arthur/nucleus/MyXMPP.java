@@ -235,24 +235,21 @@ public class MyXMPP {
         try {
             if (connection.isAuthenticated()) {
                 //TODO this is wrong, send subscribe presence then add info to a pending friend request sqlite table
-                roster.createEntry(friend + "@tritium", null, null);
-            } else {
+                Presence requestFriend = new Presence(Presence.Type.subscribe);
+                requestFriend.setTo(friend);
+                connection.sendStanza(requestFriend);
+
+            }
+            else
+            {
                 login();
             }
-
-        } catch (SmackException.NotLoggedInException e) {
-            e.printStackTrace();
-        } catch (SmackException.NoResponseException e) {
-            e.printStackTrace();
-        } catch (SmackException.NotConnectedException e) {
-            e.printStackTrace();
-        } catch (XMPPException.XMPPErrorException e) {
+        }
+        catch (SmackException.NotConnectedException e)
+        {
             e.printStackTrace();
         }
-
-
     }
-
 
     //TODO exclude people on roster -AB
     //TODO Try/catch should break if failed
@@ -292,14 +289,31 @@ public class MyXMPP {
             while (it.hasNext()) {
 
                 ReportedData.Row row = it.next();
-                List<String> values = row.getValues("Username");
-                Iterator<String> iterator = values.iterator();
-                if (iterator.hasNext()) {
+                List<String> usernames = row.getValues("Username");
+                List<String> jids = row.getValues("jid");
+                List<String> emails = row.getValues("Email");
+                List<String> names = row.getValues("Name");
+                Iterator<String> iterator = usernames.iterator();
+                for(int i = 0; i < usernames.size(); i++)
+                {
                     Friend friend = new Friend();
-                    String value = iterator.next();
-                    friend.setName(value);
-                    searchList.add(friend);
+                    String username = usernames.get(i);
+                    String jid = jids.get(i);
+                    String email = emails.get(i);
+                    String name = names.get(i);
+
+                    friend.setUserName(username);
+                    if(!friend.getUserName().equals(dbHandler.getUsername()))
+                    {
+                        friend.setName(name);
+                        friend.setJID(jid);
+                        friend.setEmail(email);
+                        searchList.add(friend);
+                    }
+
                 }
+
+
             }
         }
 
@@ -608,7 +622,15 @@ public class MyXMPP {
 
         }
     }
-
+    public void doTheThing()
+    {
+        Notification derp = new Notification();
+        derp.setType("friendReq");
+        derp.setBody("dildo wants to add you");
+        derp.setExtra("picture resource");
+        derp.setFrom("dildo@tritium");
+        dbHandler.addNotification(derp);
+    }
 
 }
 

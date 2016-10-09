@@ -3,11 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
-        applicationId "com.tritiumlabs.arthur.servertest"
+        applicationId 'com.tritiumlabs.nucleus'
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -17,27 +16,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile files('libs/libs/gson-2.2.4.jar')
-
     // Optional for XMPPTCPConnection
     // Optional for XMPP-IM (RFC 6121) support (Roster, Threaded Chats)
     // Optional for XMPP extensions support
-
-
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
-    compile'org.igniterealtime.smack:smack-android:4.1.4'
+    compile 'org.igniterealtime.smack:smack-android:4.1.4'
     compile 'org.igniterealtime.smack:smack-tcp:4.1.4'
     compile 'org.igniterealtime.smack:smack-im:4.1.4'
     compile 'org.igniterealtime.smack:smack-extensions:4.1.4'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.google.android.gms:play-services:9.4.0'
-
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }

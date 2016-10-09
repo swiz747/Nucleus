@@ -15,6 +15,8 @@ public class Friend {
 
     private String userName;
     private String name;
+    private String email;
+    private String JID;
     private String emoStatus;
     private String onlineStatus;
     private String image; //this is a place holder for user picture -AB
@@ -93,5 +95,21 @@ public class Friend {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getJID() {
+        return JID;
+    }
+
+    public void setJID(String JID) {
+        this.JID = JID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

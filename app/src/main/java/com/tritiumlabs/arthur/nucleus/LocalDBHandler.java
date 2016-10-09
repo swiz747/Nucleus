@@ -22,6 +22,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     // table names
     private static final String TABLE_MESSAGES = "messages";
     private static final String TABLE_SETTINGS = "settings";
+    private static final String TABLE_NOTIFICATIONS = "notifications";
 
     // messages table columns
     private static final String KEY_MSG_ID = "messages_id";
@@ -44,6 +45,13 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     private static final String KEY_SET_REMEMBER = "settings_remember";
     private static final String KEY_SET_STAYLOGGED = "settings_staylogged";
 
+    //notification columns
+    private static final String KEY_NOT_ID = "notifications_id";
+    private static final String KEY_NOT_TYPE = "notifications_type";
+    private static final String KEY_NOT_FROM = "notifications_from";
+    private static final String KEY_NOT_BODY = "notifications_body";
+    private static final String KEY_NOT_EXTRA = "notifications_extra";
+    private static final String KEY_NOT_TIME = "notifications_time";
 
 
 
@@ -71,7 +79,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         String CREATE_MESSAGES_TABLE = "CREATE TABLE " + TABLE_MESSAGES + "("
                 + KEY_MSG_ID + " INTEGER PRIMARY KEY," + KEY_MSG_CHAT_ID + " VARCHAR,"
                 + KEY_MSG_SENDER + " VARCHAR," + KEY_MSG_RECIEVER + " VARCHAR," + KEY_MSG_BODY + " TEXT,"
-                + KEY_MSG_SENTTIME + " DATETIME,"+ KEY_MSG_RECVTIME + " DATETIME"+ KEY_MSG_CREATETIME + " DATETIME"+")";
+                + KEY_MSG_SENTTIME + " DATETIME,"+ KEY_MSG_RECVTIME + " TIMESTAMP"+ KEY_MSG_CREATETIME + " DATETIME"+")";
 
         //TODO: ONLY UPDATES ON THIS TABLE YOU FUCKS -AB
         //create setting table
@@ -83,12 +91,16 @@ public class LocalDBHandler extends SQLiteOpenHelper {
 
 
 
+        //create notifications table
+        String CREATE_NOTIFICATIONS_TABLE = "CREATE TABLE " + TABLE_NOTIFICATIONS + "("
+                + KEY_NOT_ID + " INTEGER PRIMARY KEY," + KEY_NOT_TYPE + " VARCHAR,"+ KEY_NOT_FROM + " VARCHAR,"
+                + KEY_NOT_BODY + " TEXT," + KEY_NOT_EXTRA + " VARCHAR," + KEY_NOT_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
-        //create Friends List
 
 
         db.execSQL(CREATE_MESSAGES_TABLE);
         db.execSQL(CREATE_SETTINGS_TABLE);
+        db.execSQL(CREATE_NOTIFICATIONS_TABLE);
 
 
         ContentValues values = new ContentValues();
@@ -112,6 +124,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATIONS);
         // Creating tables again
         onCreate(db);
     }
@@ -121,8 +134,9 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     {
         //TODO: i dont know if i like this, if we ever upgrade we will wipe all user data -AB
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_MESSAGES +"'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_MESSAGES + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_SETTINGS + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_NOTIFICATIONS + "'");
         // Creating tables again
         onCreate(db);
     }
@@ -148,7 +162,6 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_MESSAGES + " WHERE " + KEY_MSG_ID + " = " + msg.getMsgID());
-         // Closing database connection
     }
 
     public  ArrayList<ChatMessage> getChatMessagesbyID(String chat_id) {
@@ -189,7 +202,7 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     }
 
 
-    public  ArrayList<ChatMessage> getChatMessagesbyUser(String friend) {
+    public ArrayList<ChatMessage> getChatMessagesbyUser(String friend) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
 
@@ -341,10 +354,126 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         Log.d("look at me motherfucker", returnValue);
         return returnValue;
     }
+    //TODO holy shit this almost slipped by, fix this shit -AB
     public String getPassword()
     {
         return "password";
     }
+
+    public void addNotification(Notification note)
+    {
+        Log.e("LocalDBHandler", "adding Notification to DB");
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_NOT_TYPE, note.getType());
+        values.put(KEY_NOT_FROM, note.getFrom());
+        values.put(KEY_NOT_BODY, note.getBody());
+        values.put(KEY_NOT_EXTRA, note.getExtra());
+        //timestamp should auto create
+        //values.put(KEY_NOT_TYPE, note.getType());
+
+
+        // Inserting Row
+        db.insert(TABLE_NOTIFICATIONS, null, values);
+        //db.close(); // Closing database connection
+    }
+    public void clearNotificationByType(String type)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NOTIFICATIONS + " WHERE " + KEY_NOT_TYPE + " = '" + type + "'";
+
+        db.execSQL(query);
+    }
+
+    public void clearNotificationByID(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NOTIFICATIONS + " WHERE " + KEY_NOT_TYPE + " = " + id;
+        db.execSQL(query);
+    }
+    public void clearAllNotifications()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NOTIFICATIONS;
+        db.execSQL(query);
+    }
+    public ArrayList<Notification> getAllNotifications()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Notification> notifications = new ArrayList<Notification>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_NOTIFICATIONS;
+
+        Log.e("LocalDBHandler", selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+        {
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+                    Notification notification = new Notification();
+
+                    notification.setNotificationID(c.getInt(c.getColumnIndex(KEY_NOT_ID)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TYPE)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_FROM)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_BODY)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_EXTRA)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TIME)));
+
+
+                    // adding to ChatMessage ArrayList -AB
+                    notifications.add(notification);
+                } while (c.moveToNext());
+            }
+        }
+
+
+
+        return notifications;
+    }
+
+    public ArrayList<Notification> getNotificationsByType(String type)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Notification> notifications = new ArrayList<Notification>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_NOTIFICATIONS + " WHERE "
+                + KEY_NOT_TYPE + " = '" + type + "'";
+
+        Log.e("LocalDBHandler", selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+        {
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+                    Notification notification = new Notification();
+
+                    notification.setNotificationID(c.getInt(c.getColumnIndex(KEY_NOT_ID)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TYPE)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_FROM)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_BODY)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_EXTRA)));
+                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TIME)));
+
+
+                    // adding to ChatMessage ArrayList -AB
+                    notifications.add(notification);
+                } while (c.moveToNext());
+            }
+        }
+
+
+
+        return notifications;
+    }
+
+
 
     public void fuckeverything()
     {
@@ -354,8 +483,11 @@ public class LocalDBHandler extends SQLiteOpenHelper {
         db.execSQL(deleteAll);
         String deleteAll2 = "DELETE FROM " + TABLE_SETTINGS;
         db.execSQL(deleteAll2);
+        String deleteAll3 = "DELETE FROM " + TABLE_NOTIFICATIONS;
+        db.execSQL(deleteAll3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTIFICATIONS);
         db.close();
 
     }

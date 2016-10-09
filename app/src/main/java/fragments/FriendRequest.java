@@ -7,13 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 
 import com.tritiumlabs.arthur.nucleus.Friend;
-import com.tritiumlabs.arthur.nucleus.FriendAddAdapter;
+import com.tritiumlabs.arthur.nucleus.adapters.FriendAddAdapter;
 import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 

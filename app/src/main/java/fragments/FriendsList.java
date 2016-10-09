@@ -5,8 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tritiumlabs.arthur.nucleus.FriendslistAdapter;
+import com.tritiumlabs.arthur.nucleus.adapters.FriendslistAdapter;
 import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 
@@ -41,6 +39,8 @@ public class FriendsList extends Fragment {
         // ----Set autoscroll of listview when a new message arrives----//
         lstView_Friends.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         lstView_Friends.setStackFromBottom(true);
+
+
 
 
         lstView_Friends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,6 +89,7 @@ public class FriendsList extends Fragment {
         Log.d("Friendslist","about to get roster");
 
         friendslistAdapter = new FriendslistAdapter(getActivity(), MyService.xmpp.getRoster());
+        MyService.xmpp.doTheThing();
         lstView_Friends.setAdapter(friendslistAdapter);
         friendslistAdapter.notifyDataSetChanged();
         Log.d("Friendslist","Trust me the friendslist was created and in theory the layout was inflated");
