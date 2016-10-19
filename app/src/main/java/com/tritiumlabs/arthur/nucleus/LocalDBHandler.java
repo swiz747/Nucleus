@@ -362,21 +362,45 @@ public class LocalDBHandler extends SQLiteOpenHelper {
 
     public void addNotification(Notification note)
     {
-        Log.e("LocalDBHandler", "adding Notification to DB");
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        String name = note.getFrom();
+        String type = note.getType();
+        String selectQuery = "SELECT * FROM " + TABLE_NOTIFICATIONS +
+                " WHERE " + KEY_NOT_TYPE + " = '" + type + "'" +
+                " AND " + KEY_NOT_FROM + " = '" + name + "'";
 
-        values.put(KEY_NOT_TYPE, note.getType());
-        values.put(KEY_NOT_FROM, note.getFrom());
-        values.put(KEY_NOT_BODY, note.getBody());
-        values.put(KEY_NOT_EXTRA, note.getExtra());
-        //timestamp should auto create
-        //values.put(KEY_NOT_TYPE, note.getType());
+        Cursor c = db.rawQuery(selectQuery, null);
+        Log.e("LocalDBHandler", "checking Notification in DB");
+
+        if(c != null)
+        {
+            if(c.getCount() == 0)
+            {
+                Log.e("LocalDBHandler", "adding Notification to DB");
+
+                ContentValues values = new ContentValues();
+
+                values.put(KEY_NOT_TYPE, note.getType());
+                values.put(KEY_NOT_FROM, note.getFrom());
+                values.put(KEY_NOT_BODY, note.getBody());
+                values.put(KEY_NOT_EXTRA, note.getExtra());
 
 
-        // Inserting Row
-        db.insert(TABLE_NOTIFICATIONS, null, values);
-        //db.close(); // Closing database connection
+
+                // Inserting Row
+                db.insert(TABLE_NOTIFICATIONS, null, values);
+            }
+            else
+            {
+                Log.e("LocalDBHandler", "notification exists");
+            }
+
+        }
+        else
+        {
+            Log.e("LocalDBHandler", "c was null!");
+        }
+        c.close();
     }
     public void clearNotificationByType(String type)
     {
@@ -389,7 +413,14 @@ public class LocalDBHandler extends SQLiteOpenHelper {
     public void clearNotificationByID(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE_NOTIFICATIONS + " WHERE " + KEY_NOT_TYPE + " = " + id;
+        String query = "DELETE FROM " + TABLE_NOTIFICATIONS + " WHERE " + KEY_NOT_ID + " = " + id;
+        Log.e("LocalDBHandler", query);
+        db.execSQL(query);
+    }
+    public void clearNotificationByNameAndType(String name, String type)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NOTIFICATIONS + " WHERE " + KEY_NOT_TYPE + " = '" + type + "'" + " AND " + KEY_NOT_FROM + " = '" + name + "'";
         db.execSQL(query);
     }
     public void clearAllNotifications()
@@ -418,10 +449,10 @@ public class LocalDBHandler extends SQLiteOpenHelper {
 
                     notification.setNotificationID(c.getInt(c.getColumnIndex(KEY_NOT_ID)));
                     notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TYPE)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_FROM)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_BODY)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_EXTRA)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TIME)));
+                    notification.setFrom(c.getString(c.getColumnIndex(KEY_NOT_FROM)));
+                    notification.setBody(c.getString(c.getColumnIndex(KEY_NOT_BODY)));
+                    notification.setExtra(c.getString(c.getColumnIndex(KEY_NOT_EXTRA)));
+                    notification.setTimestamp(c.getString(c.getColumnIndex(KEY_NOT_TIME)));
 
 
                     // adding to ChatMessage ArrayList -AB
@@ -456,10 +487,10 @@ public class LocalDBHandler extends SQLiteOpenHelper {
 
                     notification.setNotificationID(c.getInt(c.getColumnIndex(KEY_NOT_ID)));
                     notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TYPE)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_FROM)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_BODY)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_EXTRA)));
-                    notification.setType(c.getString(c.getColumnIndex(KEY_NOT_TIME)));
+                    notification.setFrom(c.getString(c.getColumnIndex(KEY_NOT_FROM)));
+                    notification.setBody(c.getString(c.getColumnIndex(KEY_NOT_BODY)));
+                    notification.setExtra(c.getString(c.getColumnIndex(KEY_NOT_EXTRA)));
+                    notification.setTimestamp(c.getString(c.getColumnIndex(KEY_NOT_TIME)));
 
 
                     // adding to ChatMessage ArrayList -AB

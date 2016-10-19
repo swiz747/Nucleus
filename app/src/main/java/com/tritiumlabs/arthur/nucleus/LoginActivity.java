@@ -57,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            //userName.setText("phoneapp");
-            //passwordText.setText("derpass747");
-            userName.setText("tester");
-            passwordText.setText("fuck123");
+            userName.setText("phoneapp");
+            passwordText.setText("derpass747");
+            //userName.setText("tester");
+            //passwordText.setText("fuck123");
         }
 
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 
 /**
@@ -25,6 +26,7 @@ public class HomeScreen extends android.support.v4.app.Fragment {
         Button friendsList = (Button)view.findViewById(R.id.friendsListButton);
         Button inboxButton = (Button)view.findViewById(R.id.messagesButton);
         Button trackerButton = (Button)view.findViewById(R.id.trackerButton);
+        Button notificationButton = (Button)view.findViewById(R.id.notificationButton);
 
 
         friendsList.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +73,20 @@ public class HomeScreen extends android.support.v4.app.Fragment {
                         .beginTransaction()
                         .replace(R.id.fragContainer, toFragment, "tracker")
                         .addToBackStack("tracker").commit();
+
+            }
+        });
+
+        notificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment toFragment = new FriendRequest();
+                //toFragment.setArguments(args);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragContainer, toFragment, "notifications")
+                        .addToBackStack("notifications").commit();
 
             }
         });

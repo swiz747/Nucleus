@@ -50,10 +50,6 @@ public class Friend {
         return userName;
     }
 
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-    }
 
     public String getName()
     {
@@ -103,6 +99,7 @@ public class Friend {
 
     public void setJID(String JID) {
         this.JID = JID;
+        this.userName = JID.substring(0,JID.indexOf("@"));
     }
 
     public String getEmail() {
@@ -112,4 +109,6 @@ public class Friend {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

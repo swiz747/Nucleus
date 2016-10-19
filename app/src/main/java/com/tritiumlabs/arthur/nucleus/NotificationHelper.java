@@ -32,7 +32,7 @@ public class NotificationHelper {
         notification.setAutoCancel(true);
 
 
-        notification.setSmallIcon(R.drawable.ic_stat_testicon);
+        notification.setSmallIcon(R.drawable.friendreq_noti);
         //notification.setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_stat_testicon));
         notification.setTicker("im a ticker");
         notification.setColor(color);

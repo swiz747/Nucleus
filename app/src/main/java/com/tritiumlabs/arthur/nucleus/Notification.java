@@ -78,4 +78,16 @@ public class Notification {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    public String getClippedName()
+    {
+        String returnString = "";
+
+        if(from != null)
+        {
+            returnString = from.substring(0,from.indexOf("@"));
+        }
+
+        return returnString;
+    }
 }

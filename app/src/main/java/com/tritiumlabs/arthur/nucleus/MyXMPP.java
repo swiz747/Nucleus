@@ -21,16 +21,20 @@ import org.jivesoftware.smack.chat.ChatManager;
 import org.jivesoftware.smack.chat.ChatManagerListener;
 import org.jivesoftware.smack.chat.ChatMessageListener;
 import org.jivesoftware.smack.filter.AndFilter;
+import org.jivesoftware.smack.filter.OrFilter;
 import org.jivesoftware.smack.filter.PresenceTypeFilter;
 import org.jivesoftware.smack.filter.StanzaTypeFilter;
+import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.roster.Roster;
 import org.jivesoftware.smack.roster.RosterEntry;
 import org.jivesoftware.smack.roster.RosterListener;
+import org.jivesoftware.smack.roster.packet.RosterPacket;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.smackx.pubsub.Subscription;
 import org.jivesoftware.smackx.search.ReportedData;
 import org.jivesoftware.smackx.search.UserSearchManager;
 import org.jivesoftware.smackx.xdata.Form;
@@ -42,6 +46,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import fragments.Chats;
+import fragments.FriendRequest;
+import fragments.FriendsList;
 
 public class MyXMPP {
 
@@ -228,15 +234,34 @@ public class MyXMPP {
     public static XMPPTCPConnection getConnection() {
         return connection;
     }
+
+    public void confirmFriend(String friend)
+    {
+        Presence confirmFriend = new Presence(Presence.Type.subscribed);
+        confirmFriend.setTo(friend);
+        confirmFriend.setStatus("confirmFriend");
+        sendPresence(confirmFriend);
+        confirmFriend.setType(Presence.Type.subscribe);
+        confirmFriend.setTo(friend);
+        confirmFriend.setStatus("confirmFriend");
+        sendPresence(confirmFriend);
+    }
     //TODO only add if not on roster -AB
     public void addFriend(String friend) {
 
-        Roster roster = Roster.getInstanceFor(connection);
         try {
             if (connection.isAuthenticated()) {
-                //TODO this is wrong, send subscribe presence then add info to a pending friend request sqlite table
                 Presence requestFriend = new Presence(Presence.Type.subscribe);
                 requestFriend.setTo(friend);
+                requestFriend.setStatus("friendReq");
+
+
+                Notification tempNote = new Notification();
+                tempNote.setType("pendReq");
+                tempNote.setBody("Friend Request Pending: " + friend);
+                tempNote.setExtra("picture resource");
+                tempNote.setFrom(friend);
+                dbHandler.addNotification(tempNote);
                 connection.sendStanza(requestFriend);
 
             }
@@ -302,8 +327,7 @@ public class MyXMPP {
                     String email = emails.get(i);
                     String name = names.get(i);
 
-                    friend.setUserName(username);
-                    if(!friend.getUserName().equals(dbHandler.getUsername()))
+                    if(!friend.getJID().equals(dbHandler.getUsername()))
                     {
                         friend.setName(name);
                         friend.setJID(jid);
@@ -316,9 +340,6 @@ public class MyXMPP {
 
             }
         }
-
-
-
         return searchList;
 
 
@@ -329,42 +350,45 @@ public class MyXMPP {
         ArrayList<Friend> friendsList = new ArrayList<Friend>();
 
         Roster roster = Roster.getInstanceFor(connection);
-        roster.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
         Collection<RosterEntry> entries = roster.getEntries();
 
         for (RosterEntry entry : entries) {
             String debugString = "";
-            Friend tempFriend = new Friend();
-            Presence tempPresence = roster.getPresence(entry.getUser());
-            tempFriend.setUserName(entry.getUser());
-            debugString += "username: "+entry.getUser() + ",";
-            tempFriend.setName(entry.getName());
-            debugString += "name: "+entry.getName() + ",";
-            if(tempPresence == null)
+            if (entry.getType() == RosterPacket.ItemType.both)
             {
-                tempFriend.setOnlineStatus("offline");
-                debugString += "mode: "+ "offline" + ",";
-                tempFriend.setEmoStatus("");
-                debugString += "Status: "+ "" + "";
-            }
-            else
-            {
-                tempFriend.setOnlineStatus(String.valueOf(tempPresence.getType()));
+                Friend tempFriend = new Friend();
+                Presence tempPresence = roster.getPresence(entry.getUser());
+                tempFriend.setJID(entry.getUser());
+                debugString += "username: "+entry.getUser() + ",";
+                tempFriend.setName(entry.getName());
+                debugString += "name: "+entry.getName() + ",";
+                if(tempPresence == null)
+                {
+                    tempFriend.setOnlineStatus("offline");
+                    debugString += "mode: "+ "offline" + ",";
+                    tempFriend.setEmoStatus("");
+                    debugString += "Status: "+ "" + "";
+                }
+                else
+                {
+                    tempFriend.setOnlineStatus(String.valueOf(tempPresence.getType()));
+                    debugString += "type: "+ String.valueOf(tempPresence.getType()) + ",";
+                    tempFriend.setEmoStatus(tempPresence.getStatus());
+                    debugString += "Status: "+tempPresence.getStatus() + "";
+                }
+
+                friendsList.add(tempFriend);
+
+                Log.d("GET ROSTER: ", debugString);
+
+                debugString = "";
+
+                debugString += "checker: "+ String.valueOf(tempPresence.isAvailable()) + ",";
                 debugString += "type: "+ String.valueOf(tempPresence.getType()) + ",";
-                tempFriend.setEmoStatus(tempPresence.getStatus());
-                debugString += "Status: "+tempPresence.getStatus() + "";
+
+                Log.d("Lets double check: ", debugString);
+
             }
-
-            friendsList.add(tempFriend);
-
-            Log.d("GET ROSTER: ", debugString);
-
-            debugString = "";
-
-            debugString += "checker: "+ String.valueOf(tempPresence.isAvailable()) + ",";
-            debugString += "type: "+ String.valueOf(tempPresence.getType()) + ",";
-
-            Log.d("Lets double check: ", debugString);
 
         }
         return friendsList;
@@ -448,18 +472,24 @@ public class MyXMPP {
             rosterListener = new XMPPRosterListener();
             subscriptionListener = new XMPPSubscriptionListener();
 
-            connection.addAsyncStanzaListener(subscriptionListener, new AndFilter(PresenceTypeFilter.SUBSCRIBE, PresenceTypeFilter.SUBSCRIBED,
-                    PresenceTypeFilter.UNSUBSCRIBE, PresenceTypeFilter.UNSUBSCRIBED));
+
 
 
             Roster.getInstanceFor(connection).setSubscriptionMode(Roster.SubscriptionMode.manual);
             Roster.getInstanceFor(connection).addRosterListener(rosterListener);
             ChatManager.getInstanceFor(connection).addChatListener(chatManagerListener);
+            connection.addAsyncStanzaListener(subscriptionListener, new OrFilter(PresenceTypeFilter.SUBSCRIBE, PresenceTypeFilter.SUBSCRIBED,
+                    PresenceTypeFilter.UNSUBSCRIBE, PresenceTypeFilter.UNSUBSCRIBED));
+
+            /**
+             *
+             * new OrFilter(PresenceTypeFilter.SUBSCRIBE, PresenceTypeFilter.SUBSCRIBED,
+             PresenceTypeFilter.UNSUBSCRIBE, PresenceTypeFilter.UNSUBSCRIBED)
+             */
 
 
-            //TODO get rid of the derp -AB
             //let friends know youre online
-            Stanza onlineNow = new Presence(Presence.Type.available,"derp", 1, Presence.Mode.available);
+            Stanza onlineNow = new Presence(Presence.Type.available,"online", 1, Presence.Mode.available);
             try {
                 connection.sendStanza(onlineNow);
             } catch (SmackException.NotConnectedException e) {
@@ -475,18 +505,73 @@ public class MyXMPP {
     private class XMPPSubscriptionListener implements StanzaListener {
 
         @Override
-        public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
-            Presence temp = (Presence) packet;
+        public void processPacket(Stanza stanza) throws SmackException.NotConnectedException {
+            Presence temp = (Presence) stanza;
+
+            Roster roster = Roster.getInstanceFor(connection);
 
             Log.d("xmpp", "im processing a packet i guess: " + temp.getStanzaId() + ": status from "+ temp.getFrom() + " :" + temp.getStatus());
 
             if(temp.getType() == Presence.Type.subscribe)
             {
-                Log.d("xmpp", "some nigga subscribed to me");
+                if (temp.getStatus().equals("friendReq"))
+                {
+                    Log.d("xmpp", "some nigga subscribed to me");
+                    //TODO make a notification some nigga friend requested me
+                    Notification newRequest = new Notification();
+                    newRequest.setFrom(temp.getFrom());
+                    newRequest.setType("friendReq");
+                    newRequest.setBody("New Request From " + newRequest.getClippedName());
+                    newRequest.setExtra("derp");
+                    dbHandler.addNotification(newRequest);
+                }
+                else if(temp.getStatus().equals("confirmFriend"))
+                {
+
+                }
+
             }
             else if(temp.getType() == Presence.Type.subscribed)
             {
+
+
+                    if (temp.getStatus().equals("confirmFriend"))
+                    {
+                        try {
+                            roster.createEntry(temp.getFrom(),"",null);
+                            dbHandler.clearNotificationByNameAndType(temp.getFrom(), "pendReq");
+                            Presence ackFriend = new Presence(Presence.Type.subscribed);
+                            ackFriend.setTo(temp.getFrom());
+                            ackFriend.setStatus("acknowledged");
+                            connection.sendStanza(ackFriend);
+                        } catch (SmackException.NotLoggedInException e) {
+                            login();
+                        } catch (SmackException.NoResponseException e) {
+                            e.printStackTrace();
+                        } catch (XMPPException.XMPPErrorException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else
+                    {
+
+                    }
+
+
+
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            FriendsList.friendslistAdapter.notifyDataSetChanged();
+                            FriendRequest.friendRequestAdapter.notifyDataSetChanged();
+
+                        }
+                    });
+
                 Log.d("xmpp", "some nigga accepted my subscription");
+
             }
             else if(temp.getType() == Presence.Type.unsubscribe)
             {
@@ -622,13 +707,15 @@ public class MyXMPP {
 
         }
     }
+
     public void doTheThing()
     {
         Notification derp = new Notification();
-        derp.setType("friendReq");
-        derp.setBody("dildo wants to add you");
-        derp.setExtra("picture resource");
         derp.setFrom("dildo@tritium");
+        derp.setType("pendReq");
+        derp.setBody("Wants to add you as a friend");
+        derp.setExtra("extra info");
+
         dbHandler.addNotification(derp);
     }
 

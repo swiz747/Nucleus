@@ -89,7 +89,7 @@ public class FriendsList extends Fragment {
         Log.d("Friendslist","about to get roster");
 
         friendslistAdapter = new FriendslistAdapter(getActivity(), MyService.xmpp.getRoster());
-        MyService.xmpp.doTheThing();
+
         lstView_Friends.setAdapter(friendslistAdapter);
         friendslistAdapter.notifyDataSetChanged();
         Log.d("Friendslist","Trust me the friendslist was created and in theory the layout was inflated");

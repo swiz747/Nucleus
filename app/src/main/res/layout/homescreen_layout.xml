@@ -25,4 +25,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/trackerButton" />
 
+    <Button
+        android:text="notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notificationButton" />
+
 </LinearLayout>
