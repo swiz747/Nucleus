@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tritiumlabs.arthur.nucleus.Friend;
 import com.tritiumlabs.arthur.nucleus.LocationInfo;
 import com.tritiumlabs.arthur.nucleus.LocationRetriever;
 import com.tritiumlabs.arthur.nucleus.MainActivity;
@@ -30,6 +31,7 @@ import com.tritiumlabs.arthur.nucleus.MyService;
 import com.tritiumlabs.arthur.nucleus.R;
 import com.tritiumlabs.arthur.nucleus.interfaces.ExternalDBInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -87,6 +89,9 @@ public class Tracker extends android.support.v4.app.Fragment {
 
                 }
                 Log.d("nigga","in background thread");
+                //googleMap.addMarker(new MarkerOptions().position(new LatLng(21,46)).title("me").snippet("holy shit, will this work?"));
+
+                //addFriendMarkers();
 
                 return null;
             }
@@ -94,6 +99,7 @@ public class Tracker extends android.support.v4.app.Fragment {
             @Override
             protected void onPostExecute(Boolean result) {
                 super.onPostExecute(result);
+
                 Log.d("nigga",locationRetriever.getCombinedLatLong());
                 myLatitudeText = locationRetriever.getLatitude();
                 myLongitudeText = locationRetriever.getLongitude();
@@ -102,7 +108,6 @@ public class Tracker extends android.support.v4.app.Fragment {
                 updateLocation(myLatitude, myLongitude);
                 progress.dismiss();
                 setMapCamera();
-
             }
         };
         retrieveLocation.execute();
@@ -146,7 +151,56 @@ public class Tracker extends android.support.v4.app.Fragment {
     }
     public void addFriendMarkers()
     {
-        //googleMap.addMarker(new MarkerOptions().position(warwick).title("dildo").snippet("fucking gorton pond or some shit"));
+
+
+
+
+
+
+
+
+        ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);
+        ArrayList<Friend> friendList = MyService.xmpp.getRoster();
+        final ArrayList<LocationInfo> friendLocations = new ArrayList<>();
+
+        String friendAggregation = "";
+        for(int i = 0; i < friendList.size(); i++)
+        {
+            friendAggregation += friendList.get(i).getName();
+            friendAggregation += ", ";
+        }
+        friendAggregation = friendAggregation.substring(0, friendAggregation.length() -2);
+        final Call<List<LocationInfo>> call =
+                dbInterface.getLocation(friendAggregation);
+
+
+        call.enqueue(new Callback<List<LocationInfo>>() {
+            @Override
+            public void onResponse(Call<List<LocationInfo>> call, Response<List<LocationInfo>> response)
+            {
+                for(int i = 0; i < response.body().size(); i++)
+                {
+                    LocationInfo friendLocation = response.body().get(i);
+
+                    LatLng derp = new LatLng(Double.valueOf(friendLocation.getLatitude()) ,Double.valueOf(friendLocation.getLongitude()));
+
+                    friendLocation.setLatLng(derp);
+                    friendLocations.add(friendLocation);
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<LocationInfo>> call, Throwable t) {
+
+                Log.d("Tracker","Something went wrong: " + t.getMessage());
+            }
+        });
+
+        for(int i = 0; i < friendLocations.size(); i++)
+        {
+            googleMap.addMarker(new MarkerOptions().position(friendLocations.get(i).getLatLng()).title(friendLocations.get(i).getUsername()).snippet("this is where statuses go"));
+        }
+
     }
 
 

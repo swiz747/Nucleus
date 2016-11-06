@@ -11,9 +11,9 @@ public class ChatMessage {
     private String sentTime;
     private String recvTime;
     private String createTime;
-    private int msgID;
-    private String chatID;
-    private boolean isMine;
+    private int msgID; // needed for local databse retrieval
+    private String chatID; // used for thread matching through xmpp
+    private boolean isMine; // used for positioning in chat fragment
 
     public ChatMessage(String Sender, String Receiver, String messageString, String sentTime, String recvTime, String createTime) {
         this.body = messageString;

@@ -61,8 +61,8 @@ public class FriendsList extends Fragment {
                 toFragment.setArguments(args);
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragContainer, toFragment, "where is this")
-                        .addToBackStack("where is this").commit();
+                        .replace(R.id.fragContainer, toFragment, "chats")
+                        .addToBackStack("chats").commit();
 
 
 

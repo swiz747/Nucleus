@@ -1,11 +1,16 @@
 package com.tritiumlabs.arthur.nucleus;
 
 
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -24,6 +29,7 @@ import org.jivesoftware.smack.filter.AndFilter;
 import org.jivesoftware.smack.filter.OrFilter;
 import org.jivesoftware.smack.filter.PresenceTypeFilter;
 import org.jivesoftware.smack.filter.StanzaTypeFilter;
+import org.jivesoftware.smack.packet.ExtensionElement;
 import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
@@ -49,6 +55,8 @@ import fragments.Chats;
 import fragments.FriendRequest;
 import fragments.FriendsList;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class MyXMPP {
 
     private static boolean connected = false;
@@ -70,6 +78,7 @@ public class MyXMPP {
     private XMPPMessageListener messageListener;
     private XMPPRosterListener rosterListener;
     private static LocalBroadcastManager lbm;
+    private static NotificationHelper notificationHelper;
     private Gson gson;
 
     //NEVER USE THE CONSTRUCTOR FOR THIS CLASS USE THE GET INSTANCE METHOD -AB
@@ -79,6 +88,7 @@ public class MyXMPP {
         MyXMPP.host = host;
         MyXMPP.port = port;
         MyXMPP.lbm = LocalBroadcastManager.getInstance(context);
+        MyXMPP.notificationHelper = new NotificationHelper(context);
         gson = new Gson();
 
         //TODO add packet listeners here -AB
@@ -168,7 +178,7 @@ public class MyXMPP {
     //Start of helper methods/functions -AB
     public Message createMessage(ChatMessage chatMessage)
     {
-        String body = gson.toJson(chatMessage);
+
         ChatManager.getInstanceFor(connection).getThreadChat(chatMessage.getChatID());
         return null;
     }
@@ -184,8 +194,36 @@ public class MyXMPP {
     }
 
 
-    public void sendMessage(Message message)
+    public void sendMessage(ChatMessage chatMessage, String threadID)
     {
+        String body = gson.toJson(chatMessage);
+        Chat currentChat = ChatManager.getInstanceFor(connection).getThreadChat(threadID);
+
+        if (currentChat == null)
+        {
+            currentChat = ChatManager.getInstanceFor(connection).createChat(chatMessage.getReceiver() +"@tritium");
+        }
+        final Message message = new Message();
+        message.setBody(body);
+        message.setType(Message.Type.chat);
+
+        try {
+            if (connection.isAuthenticated()) {
+                // maybe preprocess outgoing messages here
+                currentChat.sendMessage(message);
+                Log.d("sendMEssage", body);
+                dbHandler.addMessage(chatMessage);
+
+            } else {
+
+                login();
+            }
+        } catch (SmackException.NotConnectedException e) {
+            Log.e("xmpp.SendMessage()", "msg Not sent!-Not Connected!");
+
+        } catch (Exception e) {
+            Log.e("SendMessage()-Exception","msg Notsent!" + e.getMessage());
+        }
     }
     public void sendPresence(Presence presence)
     {
@@ -237,14 +275,15 @@ public class MyXMPP {
 
     public void confirmFriend(String friend)
     {
-        Presence confirmFriend = new Presence(Presence.Type.subscribed);
-        confirmFriend.setTo(friend);
-        confirmFriend.setStatus("confirmFriend");
-        sendPresence(confirmFriend);
-        confirmFriend.setType(Presence.Type.subscribe);
-        confirmFriend.setTo(friend);
-        confirmFriend.setStatus("confirmFriend");
-        sendPresence(confirmFriend);
+        Presence confirmFriendSubscribed = new Presence(Presence.Type.subscribed);
+        Presence confirmFriendSubscribe = new Presence(Presence.Type.subscribe);
+        confirmFriendSubscribed.setTo(friend);
+        confirmFriendSubscribed.setStatus("confirmFriend");
+        confirmFriendSubscribe.setTo(friend);
+        confirmFriendSubscribe.setStatus("confirmFriend");
+
+        sendPresence(confirmFriendSubscribe);
+        sendPresence(confirmFriendSubscribed);
     }
     //TODO only add if not on roster -AB
     public void addFriend(String friend) {
@@ -326,8 +365,12 @@ public class MyXMPP {
                     String jid = jids.get(i);
                     String email = emails.get(i);
                     String name = names.get(i);
+                    String errorString = "";
 
-                    if(!friend.getJID().equals(dbHandler.getUsername()))
+                    //errorString += "JID: " + jid + " " + "Username: " + username;
+                    //Log.e("fucking look at me",errorString );
+
+                    if(!username.equals(MyXMPP.dbHandler.getUsername()))
                     {
                         friend.setName(name);
                         friend.setJID(jid);
@@ -564,8 +607,9 @@ public class MyXMPP {
 
                         @Override
                         public void run() {
-                            FriendsList.friendslistAdapter.notifyDataSetChanged();
-                            FriendRequest.friendRequestAdapter.notifyDataSetChanged();
+                            //TODO check fragment manager and see if fragment is created before modifying
+                            //FriendsList.friendslistAdapter.notifyDataSetChanged();
+                            //FriendRequest.friendRequestAdapter.notifyDataSetChanged();
 
                         }
                     });
@@ -610,8 +654,17 @@ public class MyXMPP {
         public void processMessage(Chat chat, Message message) {
             Log.i("MyXMPP_MESSAGE_LISTENER", "Xmpp message received: '"
                     + message);
+            ArrayList<ExtensionElement> derp = (ArrayList<ExtensionElement>) message.getExtensions();
+            String extensions = "";
+            for(int i = 0; i<derp.size();i++)
+            {
+                extensions += derp.get(i).getNamespace();
+                extensions += ": ";
+            }
 
-            if (message.getType() == Message.Type.chat && message.getBody() != null)
+            Log.e("MyXMPP", extensions);
+
+            if (message.getType() == Message.Type.chat && message.getBody() != null && message.getExtension("delay","urn:xmpp:delay") == null)
             {
                 //TODO if this actually works then Gson library is straight up fucking magic -AB
                 final ChatMessage chatMessage = gson.fromJson(
@@ -620,33 +673,46 @@ public class MyXMPP {
 
                 processSingleMessage(chatMessage);
             }
-            else if (message.getType() == Message.Type.groupchat && message.getBody() != null)
+            else if (message.getType() == Message.Type.groupchat && message.getBody() != null && message.getExtension("delay","urn:xmpp:delay") == null)
             {
                 //TODO Implement groupchat functionality -AB
                 processGroupMessage();
+            }
+            else if (message.getExtension("delay","urn:xmpp:delay") != null && message.getBody() != null)
+            {
+                Log.e("MyXMPP", "Delayed fucking message");
             }
             //add elseifs for different types of chats
         }
         private void processSingleMessage(final ChatMessage chatMessage)
         {
             chatMessage.setIsMine(false);
-
+            String jsonMessage = gson.toJson(chatMessage);
             //holy shit i hope this works -AB
             dbHandler.addMessage(chatMessage);
-            Chats.chatlist.add(chatMessage);
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
 
-                @Override
-                public void run() {
-                    Chats.chatAdapter.notifyDataSetChanged();
 
-                }
-            });
+
+            Intent i = new Intent("updateChatList");
+            //i.putExtra("chatID", chatMessage.getChatID());
+            i.putExtra("from", chatMessage.getSender());
+            i.putExtra("message", jsonMessage);
+            lbm.sendBroadcast(i);
+
+            //if activity is not active
+            // prepare intent which is triggered if the
+            // notification is selected
+            notificationHelper.messageNotificcation(chatMessage);
+
+
+
         }
         private void processGroupMessage()
         {
 
         }
+
+
     }
 
     private class XMPPRosterListener implements RosterListener

@@ -28,6 +28,7 @@ public class HomeScreen extends android.support.v4.app.Fragment {
         Button trackerButton = (Button)view.findViewById(R.id.trackerButton);
         Button notificationButton = (Button)view.findViewById(R.id.notificationButton);
 
+        inboxButton.setEnabled(false);
 
         friendsList.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,16 +1,12 @@
 package com.tritiumlabs.arthur.nucleus;
 
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,24 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.tritiumlabs.arthur.nucleus.interfaces.ExternalDBInterface;
-
-import java.util.List;
 
 import fragments.Chats;
 import fragments.FriendAdd;
+import fragments.FriendRequest;
 import fragments.FriendsList;
 import fragments.HomeScreen;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,31 +33,64 @@ public class MainActivity extends AppCompatActivity {
     protected Location mLastLocation;
     private  String myLongitudeText;
     private String myLatitudeText;
-    private ExternalDBHandler externalDB;
+    public boolean isActive;
+
     private MyService mService;
 
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+        isActive = true;
         //Checking extras in intents for more dynamic responses
-       if(getIntent().hasExtra("notification"))
-       {
-           //TODO add notification filtering here
-       }
+
 
 
 
         Log.d(TAG, "on create method");
         Intent i = new Intent(this, MyService.class);
-        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
-        externalDB = new ExternalDBHandler();
+        bindService(i, mConnection, Context.BIND_ABOVE_CLIENT);
+        startService(i);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         openHomeScreen();
+        if(getIntent().hasExtra("notification"))
+        {
+            //TODO add notification filtering here
+            Log.d(TAG,getIntent().getStringExtra("type"));
+            if(getIntent().getStringExtra("type").equals("message"))
+            {
+                Log.d(TAG,"inside the belly of the notification action");
+                Bundle args = new Bundle();
+                args.putString("friendName", getIntent().getStringExtra("from"));
+                Fragment toFragment = new Chats();
+                toFragment.setArguments(args);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragContainer, toFragment, "chats")
+                        .addToBackStack("chats").commit();
+            }
+            if(getIntent().getStringExtra("type").equals("request"))
+            {
+                Fragment toFragment = new FriendRequest();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragContainer, toFragment, "notifications")
+                        .addToBackStack("notifications").commit();
+            }
+            if(getIntent().getStringExtra("type").equals("presence"))
+            {
+
+            }
+        }
+        else
+        {
+
+        }
 
 
 
@@ -87,9 +104,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LocalDBHandler handler = LocalDBHandler.getInstance(this);
+        unbindService(mConnection);
         handler.close();
+        isActive = false;
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

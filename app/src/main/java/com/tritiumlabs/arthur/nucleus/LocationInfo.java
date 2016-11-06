@@ -1,5 +1,7 @@
 package com.tritiumlabs.arthur.nucleus;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Arthur on 9/22/2016.
  */
@@ -10,6 +12,7 @@ public class LocationInfo {
     String username;
     String longitude;
     String latitude;
+    LatLng latLng;
 
 
     LocationInfo()
@@ -47,5 +50,16 @@ public class LocationInfo {
 
     public void setLatitude(String latitude) {
         this.latitude = latitude;
+    }
+
+    public LatLng getLatLng() {
+        return latLng;
+    }
+
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
+
+        this.latitude = String.valueOf(latLng.latitude);
+        this.longitude = String.valueOf(latLng.longitude);
     }
 }

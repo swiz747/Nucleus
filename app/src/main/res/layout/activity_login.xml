@@ -15,7 +15,7 @@
         android:focusableInTouchMode="true"
         android:weightSum="1">
 
-        <ImageView android:src="@drawable/logo"
+        <ImageView android:src="@drawable/nucleus_logo"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_marginBottom="24dp" />

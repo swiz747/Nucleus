@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 /**
  * Created by Arthur on 9/19/2016.
- */
+
 
 
 public class ExternalDBHandler {
@@ -47,6 +47,33 @@ public class ExternalDBHandler {
         return returnInfo;
     }
 
+    public LocationInfo getMultiLocation(String usernames)
+    {
+        final String information;
+        String latText = "";
+        String longText = "";
+        ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);
+        final Call<List<String>> call =
+                dbInterface.getMultiLocation(usernames);
+
+
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+
+                information = response.body().get(0);
+                Log.d("externalDB handler", returnInfo.toString());
+            }
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+
+                returnInfo.setLatitude("0");
+                returnInfo.setLongitude("0");
+                Log.d("externalDB handler", t.getMessage());
+            }
+        });
+        return returnInfo;
+    }
     public void setLocation(String username, double latitude, double longitude)
     {
         final String returnValue = "";
@@ -73,7 +100,7 @@ public class ExternalDBHandler {
     }
 
 }
-
+*/
 
 
 

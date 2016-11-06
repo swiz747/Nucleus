@@ -57,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            userName.setText("phoneapp");
-            passwordText.setText("derpass747");
-            //userName.setText("tester");
-            //passwordText.setText("fuck123");
+            //userName.setText("phoneapp");
+            //passwordText.setText("derpass747");
+            userName.setText("tester");
+            passwordText.setText("fuck123");
         }
 
 
@@ -160,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setEnabled(true);
         //TODO add username and password to DB -AB
         MyXMPP.dbHandler.setUserName(user);
+        Log.d("derp", user);
         MyXMPP.dbHandler.setUserPassword(password);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

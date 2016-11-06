@@ -49,4 +49,52 @@ public class NotificationHelper {
         nm.notify(uniqueID, notification.build());
 
     }
+
+    public void messageNotificcation(ChatMessage chatMessage)
+    {
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("from", chatMessage.getSender());
+        i.putExtra("type", "message");
+        i.putExtra("notification", "yep");
+        // use System.currentTimeMillis() to have a unique ID for the pending intent
+        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), i, 0);
+
+        // build notification
+        // the addAction re-use the same intent to keep the example short
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        notification.setAutoCancel(true)
+                .setContentTitle("New message from " + chatMessage.getSender())
+                .setContentText("Subject")
+                .setSmallIcon(R.drawable.ic_stat_notify_msg)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true);
+
+
+        NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+        nm.notify(0, notification.build());
+    }
+    public void requestNotificcation(String from)
+    {
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("from", from);
+        i.putExtra("type", "request");
+        i.putExtra("notification", "yep");
+        // use System.currentTimeMillis() to have a unique ID for the pending intent
+        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), i, 0);
+
+        // build notification
+        // the addAction re-use the same intent to keep the example short
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        notification.setAutoCancel(true)
+                .setContentTitle("Friend Request from " + from)
+                .setSmallIcon(R.drawable.ic_stat_notify_req)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true);
+
+
+        NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+        nm.notify(0, notification.build());
+    }
 }
