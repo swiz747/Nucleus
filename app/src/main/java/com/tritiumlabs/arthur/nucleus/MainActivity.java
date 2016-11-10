@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import fragments.Chats;
 import fragments.FriendAdd;
@@ -28,11 +27,6 @@ import fragments.HomeScreen;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private boolean mBounded = false;
-    private static final String MAP_FRAGMENT_TAG = "map";
-    protected GoogleApiClient mGoogleApiClient = null;
-    protected Location mLastLocation;
-    private  String myLongitudeText;
-    private String myLatitudeText;
     public boolean isActive;
 
     private MyService mService;
@@ -58,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         openHomeScreen();
+
         if(getIntent().hasExtra("notification"))
         {
             //TODO add notification filtering here
