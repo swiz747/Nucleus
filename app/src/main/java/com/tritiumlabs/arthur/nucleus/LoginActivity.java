@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //TODO: this is for easy testing because im lazy -AB
-        if(getIntent().hasExtra("signup"))
+        if(getIntent().hasExtra("signupName"))
         {
             userName.setText(getIntent().getStringExtra("signupName"));
         }

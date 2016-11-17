@@ -48,6 +48,8 @@ public class Chats extends Fragment {
         Bundle args = getArguments();
         setUser1(dbHandler.getUsername());
         setUser2(args.getString("friendName"));
+
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(user2);
 
 

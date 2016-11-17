@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         return mService;
     }
 
+    //TODO this iswhats been fucking shit up, if we unbind the service how do we expect it to keep working? -AB
     @Override
     protected void onDestroy() {
         super.onDestroy();

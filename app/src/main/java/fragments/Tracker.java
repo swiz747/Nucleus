@@ -153,12 +153,6 @@ public class Tracker extends android.support.v4.app.Fragment {
     {
 
 
-
-
-
-
-
-
         ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);
         ArrayList<Friend> friendList = MyService.xmpp.getRoster();
         final ArrayList<LocationInfo> friendLocations = new ArrayList<>();
