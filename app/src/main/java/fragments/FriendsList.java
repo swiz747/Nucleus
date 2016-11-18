@@ -1,10 +1,7 @@
 package fragments;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tritiumlabs.arthur.servertest.FriendslistAdapter;
-import com.tritiumlabs.arthur.servertest.MainActivity;
-import com.tritiumlabs.arthur.servertest.MyService;
-import com.tritiumlabs.arthur.servertest.R;
+import com.tritiumlabs.arthur.nucleus.adapters.FriendslistAdapter;
+import com.tritiumlabs.arthur.nucleus.MyService;
+import com.tritiumlabs.arthur.nucleus.R;
 
 
 
@@ -45,6 +41,8 @@ public class FriendsList extends Fragment {
         lstView_Friends.setStackFromBottom(true);
 
 
+
+
         lstView_Friends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
@@ -56,15 +54,15 @@ public class FriendsList extends Fragment {
                 //MainActivity activity = ((MainActivity) getActivity());
                 //activity.openChat();
                 Bundle args = new Bundle();
-                friend = friend.substring(0, friend.indexOf("@"));
+                //friend = friend.substring(0, friend.indexOf("@"));
                 args.putString("friendName", friend);
                 //args.putString("friendID", friend);
                 Fragment toFragment = new Chats();
                 toFragment.setArguments(args);
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragContainer, toFragment, "where is this")
-                        .addToBackStack("where is this").commit();
+                        .replace(R.id.fragContainer, toFragment, "chats")
+                        .addToBackStack("chats").commit();
 
 
 
@@ -89,9 +87,9 @@ public class FriendsList extends Fragment {
         });
 
         Log.d("Friendslist","about to get roster");
-        friendString = MyService.xmpp.getRoster();
-        Log.d("Friendslist","got roster: " + friendString);
-        friendslistAdapter = new FriendslistAdapter(getActivity(), friendString);
+
+        friendslistAdapter = new FriendslistAdapter(getActivity(), MyService.xmpp.getRoster());
+
         lstView_Friends.setAdapter(friendslistAdapter);
         friendslistAdapter.notifyDataSetChanged();
         Log.d("Friendslist","Trust me the friendslist was created and in theory the layout was inflated");
@@ -106,6 +104,7 @@ public class FriendsList extends Fragment {
     {
 
     }
+
 
 
 

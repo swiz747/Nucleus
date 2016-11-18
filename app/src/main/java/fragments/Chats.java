@@ -1,9 +1,14 @@
 package fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,36 +16,40 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.tritiumlabs.arthur.servertest.ChatAdapter;
-import com.tritiumlabs.arthur.servertest.ChatMessage;
-import com.tritiumlabs.arthur.servertest.CommonMethods;
-import com.tritiumlabs.arthur.servertest.LocalDBHandler;
-import com.tritiumlabs.arthur.servertest.MainActivity;
-import com.tritiumlabs.arthur.servertest.R;
+import com.google.gson.Gson;
+import com.tritiumlabs.arthur.nucleus.adapters.ChatAdapter;
+import com.tritiumlabs.arthur.nucleus.ChatMessage;
+import com.tritiumlabs.arthur.nucleus.LocalDBHandler;
+import com.tritiumlabs.arthur.nucleus.MyService;
+import com.tritiumlabs.arthur.nucleus.R;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Chats extends Fragment {
 
     private EditText msg_edittext;
     private String user1 = "",user2 = "";
     private int chatID;
+    private String threadID = "";
     public static ArrayList<ChatMessage> chatlist;
     public static ChatAdapter chatAdapter;
     ListView msgListView;
     static LocalDBHandler dbHandler;
+    private UIEventListener uiEventListener;
+    private Gson gson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chat_layout, container, false);
         dbHandler = dbHandler.getInstance(getContext());
-
+        gson = new Gson();
 
         Bundle args = getArguments();
         setUser1(dbHandler.getUsername());
         setUser2(args.getString("friendName"));
+
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(user2);
 
 
@@ -55,9 +64,7 @@ public class Chats extends Fragment {
             public void onClick(View v)
             {
                 //sendButton.setImageResource(R.drawable.send_selected);
-                sendTextMessage(v);
-
-
+                sendTextMessage(v,dbHandler.getChatIDByUser(user2));
 
             }
         });
@@ -67,10 +74,14 @@ public class Chats extends Fragment {
         msgListView.setStackFromBottom(true);
 
         chatlist = new ArrayList<ChatMessage>();
-        chatlist = dbHandler.getChatMessages(user2);
+        chatlist = dbHandler.getChatMessagesbyUser(user2);
         chatAdapter = new ChatAdapter(getActivity(), chatlist);
         msgListView.setAdapter(chatAdapter);
         //dbHandler.fuckeverything();
+
+        uiEventListener = new UIEventListener();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(uiEventListener,
+                new IntentFilter("updateChatList"));
 
         return view;
     }
@@ -79,14 +90,14 @@ public class Chats extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
     }
 
-    public void sendTextMessage(View v) {
+    public void sendTextMessage(View v, String chatID) {
         String message = msg_edittext.getEditableText().toString();
         if (!message.equalsIgnoreCase("")) {
             final ChatMessage chatMessage = new ChatMessage();
 
             chatMessage.setBody(message);
             //chatMessage.setSentTime(CommonMethods.getCurrentDateTime());
-            chatMessage.setChatID(1);
+            chatMessage.setChatID(chatID);
             chatMessage.setSender(user1);
             chatMessage.setReceiver(user2);
             chatMessage.setIsMine(true);
@@ -94,8 +105,8 @@ public class Chats extends Fragment {
             msg_edittext.setText("");
             chatAdapter.add(chatMessage);
             chatAdapter.notifyDataSetChanged();
-            MainActivity activity = ((MainActivity) getActivity());
-            activity.getmService().xmpp.sendMessage(chatMessage);
+            //TODO send Message here -AB
+            MyService.xmpp.sendMessage(chatMessage, threadID);
         }
     }
     public void setUser1(String user1)
@@ -109,6 +120,32 @@ public class Chats extends Fragment {
     public void setChatID(int chatID)
     {
         this.chatID = chatID;
+    }
+    public void setThreadID(String threadID)
+    {
+        this.threadID = threadID;
+    }
+
+    private class UIEventListener extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            String from = intent.getStringExtra("from");
+            String message = intent.getStringExtra("message");
+            Log.d("Chats", "recieved broadcast");
+            if(from.equals(user2))
+            {
+                Log.d("Chats", "If statement was true");
+                ChatMessage chatMessage = gson.fromJson(
+                        message, ChatMessage.class);
+
+                chatAdapter.add(chatMessage);
+                chatAdapter.notifyDataSetChanged();
+            }
+
+        }
     }
 
 
