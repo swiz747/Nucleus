@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/edittxtUsername"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="190dp"
+            android:background="@drawable/blackthickbox"
+            android:textAlignment="textStart"
+            android:paddingStart="5dip"
+            android:hint="Username" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/edittxtPassword"
+            android:layout_below="@+id/edittxtUsername"
+            android:layout_alignStart="@+id/edittxtUsername"
+            android:layout_marginTop="50dp"
+            android:hint="Password"
+            android:background="@drawable/blackthickbox"
+            android:paddingStart="5dip" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:id="@+id/imgLogin"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/loginlong"
+            android:layout_below="@+id/edittxtPassword"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="325dp"
+            android:layout_height="200dp"
+            android:id="@+id/imgLogo"
+            android:src="@drawable/killme"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Forgot Password?"
+            android:id="@+id/txtForgotPass"
+            android:layout_below="@+id/edittxtPassword"
+            android:layout_alignEnd="@+id/edittxtPassword"
+            android:textColor="#0E2165"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="New here? Click me to register!"
+            android:id="@+id/txtRegisterNow"
+            android:layout_below="@+id/imgLogin"
+            android:layout_alignEnd="@+id/txtForgotPass"
+            android:textColor="#0E2165"
+            android:layout_marginTop="25dp"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgProfileHeader"
+            android:src="@drawable/fheaderprofile"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgUserPhoto"
+            android:layout_below="@+id/imgProfileHeader"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/nophoto150150"
+            android:layout_marginTop="25dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgCircle"
+            android:layout_below="@+id/imgProfileHeader"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fuckyougradient"
+            android:layout_marginTop="25dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="\@Newuser69"
+            android:id="@+id/txtUsername"
+            android:textSize="30sp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/imgUserPhoto"
+            android:layout_centerHorizontal="true" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView8"
+            android:layout_below="@+id/txtUsername"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/descriptionbox" >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/edittxtLongDescription"
+                android:text="This is a fucking profile thing I fucking hate my life. I fucking hate gradients. Kill me now. I hate photoshop. I hate it all. This is bull shit but hey check out this cool box!"
+                android:fillViewport="true"
+                android:inputType="textMultiLine"
+                android:layout_alignTop="@+id/scrollView8"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@+id/scrollView8"
+                android:autoText="false"
+                android:width="300dp"
+                android:height="150dp" />
+        </ScrollView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBackButton"
+            android:src="@drawable/backarrow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSettings"
+            android:src="@drawable/settingswheel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+    </RelativeLayout>
+</LinearLayout>

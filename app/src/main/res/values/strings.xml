@@ -42,4 +42,8 @@
     <string name="profiletextlocation">Warwick, RI</string>
     <string name="profiletextname">PulsatingVagina</string>
     <string name="profiletextheader">Profile</string>
+    <string name="usersettings">Settings</string>
+    <string name="animationjerkoff">animationJerkOff</string>
+    <string name="groupiestitle">Groupies</string>
+    <string name="upload_photo">[ Upload Photo ]</string>
 </resources>

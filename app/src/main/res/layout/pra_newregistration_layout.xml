@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgWelcomeHeader"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fheaderwelcome" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Grouper Registration"
+            android:id="@+id/imgRegisterHeader"
+            android:layout_below="@+id/imgWelcomeHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textSize="30sp"
+            android:textColor="#0E2165"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/edittxtUsername"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/blackthickbox"
+            android:paddingStart="5dp"
+            android:layout_below="@+id/imgRegisterHeader"
+            android:layout_centerHorizontal="true"
+            android:hint="Username" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/edittxtEmail"
+            android:background="@drawable/blackthickbox"
+            android:paddingStart="5dp"
+            android:hint="E-mail"
+            android:layout_below="@+id/edittxtUsername"
+            android:layout_alignStart="@+id/edittxtUsername"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/edittxtPassword"
+            android:hint="Password"
+            android:background="@drawable/blackthickbox"
+            android:paddingStart="5dp"
+            android:layout_below="@+id/edittxtEmail"
+            android:layout_alignStart="@+id/edittxtEmail"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/edittxtPasswordConfirm"
+            android:hint="Confirm Password"
+            android:background="@drawable/blackthickbox"
+            android:paddingStart="5dp"
+            android:layout_below="@+id/edittxtPassword"
+            android:layout_alignStart="@+id/edittxtPassword"
+            android:layout_marginTop="20dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgCheckbox"
+            android:layout_below="@+id/edittxtPasswordConfirm"
+            android:layout_alignStart="@+id/edittxtPasswordConfirm"
+            android:src="@android:drawable/checkbox_off_background"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="This is a placeholder image"
+            android:id="@+id/txtAgreementBox"
+            android:layout_below="@+id/edittxtPasswordConfirm"
+            android:layout_toEndOf="@+id/imgCheckbox"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgRegister"
+            android:src="@drawable/registerbutton"
+            android:layout_below="@+id/imgCheckbox"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp" />
+
+    </RelativeLayout>
+</LinearLayout>

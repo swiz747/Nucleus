@@ -47,32 +47,6 @@
                 android:layout_height="75dp"
                 android:layout_below="@+id/linearLayout">
 
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:id="@+id/imgMyUserPhoto"
-                    android:layout_gravity="right"
-                    android:src="@drawable/nophoto"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp" />
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bubble2"
-                    android:layout_gravity="right"
-                    android:layout_alignBottom="@+id/imgMyUserPhoto"
-                    android:layout_toStartOf="@+id/imgMyUserPhoto">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hey! Me too!"
-                        android:id="@+id/textMyUserText" />
-                </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -82,30 +56,6 @@
 
         </RelativeLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
-
-        <EditText
-            android:layout_width="285dp"
-            android:layout_height="match_parent"
-            android:id="@+id/editTextUSERTEXT" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgSendButton"
-            android:src="@drawable/sendbak" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imgAttatchButton"
-            android:src="@android:drawable/ic_menu_upload" />
-    </LinearLayout>
 
 
 </LinearLayout>

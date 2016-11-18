@@ -42,10 +42,10 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:id="@+id/imgUserProfile"
-            android:src="@drawable/nophoto"
+            android:src="@drawable/nophoto150150"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="25dp"
+            android:layout_alignEnd="@+id/textName" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -90,6 +90,17 @@
             android:id="@+id/textGender"
             android:layout_below="@+id/textLocation"
             android:layout_alignEnd="@+id/textLocation" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:id="@+id/imgviewCirclepicture"
+            android:src="@drawable/emptrycircle"
+            android:layout_alignBottom="@+id/imgUserProfile"
+            android:layout_alignEnd="@+id/imgUserProfile"
+            android:layout_toEndOf="@+id/imgEditProfile"
+            android:layout_alignTop="@+id/imgUserProfile"
+            android:tint="#000000" />
     </RelativeLayout>
 
     <RelativeLayout

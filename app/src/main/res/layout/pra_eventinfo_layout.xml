@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/groupiestitle"
+        android:id="@+id/textTitle"
+        android:layout_gravity="center_horizontal"
+        android:textSize="30sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgUploadPhoto"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/uplaodphoto"
+            android:layout_alignParentEnd="false" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBorder"
+            android:src="@drawable/photoalbumstyle"
+            android:layout_alignTop="@+id/imgUploadPhoto"
+            android:layout_alignStart="@+id/imgUploadPhoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="[ Upload Photo ]"
+            android:id="@+id/textPhotoUpload"
+            android:layout_below="@+id/imgUploadPhoto"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editDate"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:hint="Date dd/mm/yyyy" />
+
+        <EditText
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editDate"
+            android:layout_toEndOf="@+id/editDate"
+            android:hint="Name of Event"
+            android:id="@+id/editEvent" />
+
+        <EditText
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editLocation"
+            android:layout_below="@+id/editDate"
+            android:layout_alignStart="@+id/editDate"
+            android:layout_marginTop="5dp"
+            android:hint="Location" />
+
+        <EditText
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTime"
+            android:layout_alignBottom="@+id/editLocation"
+            android:layout_toEndOf="@+id/editLocation"
+            android:hint="Time" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:id="@+id/scrollView7"
+            android:layout_below="@+id/editLocation"
+            android:layout_alignStart="@+id/editLocation"
+            android:layout_alignEnd="@+id/editTime"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editDescription"
+                android:layout_alignTop="@+id/scrollView7"
+                android:layout_alignStart="@+id/scrollView7"
+                android:hint="Description" />
+        </ScrollView>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Group it!"
+            android:id="@+id/buttonGroupit"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

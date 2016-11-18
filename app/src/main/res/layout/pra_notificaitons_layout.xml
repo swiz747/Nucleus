@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="9/25/16 6:56pm"
-                        android:id="@+id/textDate"
+                        android:id="@+id/editDate"
                         android:layout_gravity="right|center_vertical"
                         android:layout_above="@+id/textView16"
                         android:layout_alignParentStart="true" />
