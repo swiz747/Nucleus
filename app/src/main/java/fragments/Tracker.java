@@ -146,9 +146,10 @@ public class Tracker extends android.support.v4.app.Fragment {
         LatLng myLocation = new LatLng(myLatitude, myLongitude);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(14).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        googleMap.addMarker(new MarkerOptions().position(myLocation).title("me").snippet("holy shit, will this work?"));
+        //addFriendMarkers();
 
     }
+    /**
     public void addFriendMarkers()
     {
 
@@ -165,7 +166,7 @@ public class Tracker extends android.support.v4.app.Fragment {
         }
         friendAggregation = friendAggregation.substring(0, friendAggregation.length() -2);
         final Call<List<LocationInfo>> call =
-                dbInterface.getLocation(friendAggregation);
+                dbInterface.getMultiLocation(friendAggregation);
 
 
         call.enqueue(new Callback<List<LocationInfo>>() {
@@ -177,7 +178,7 @@ public class Tracker extends android.support.v4.app.Fragment {
                     LocationInfo friendLocation = response.body().get(i);
 
                     LatLng derp = new LatLng(Double.valueOf(friendLocation.getLatitude()) ,Double.valueOf(friendLocation.getLongitude()));
-
+                    Log.d("Tracker","got a thing"+friendLocation.getLatitude());
                     friendLocation.setLatLng(derp);
                     friendLocations.add(friendLocation);
                 }
@@ -197,7 +198,7 @@ public class Tracker extends android.support.v4.app.Fragment {
 
     }
 
-
+    */
     public void updateLocation(double latitude, double longitude)
     {
         ExternalDBInterface dbInterface = ExternalDBInterface.retrofit.create(ExternalDBInterface.class);

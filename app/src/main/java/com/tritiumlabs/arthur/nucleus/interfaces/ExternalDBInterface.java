@@ -22,9 +22,10 @@ public interface ExternalDBInterface {
 
     @FormUrlEncoded
     @POST("nucleus/db/requestMultilocation.php")
-    Call<List<String>> getMultiLocation(
-            @Field("usernames") String usernames);
-
+    Call<List<LocationInfo>> getMultiLocation(
+            @Field("username") String username,
+            @Field("latitude") double latitude,
+            @Field("longitude") double longitude);
     @FormUrlEncoded
     @POST("nucleus/db/updatelocation.php")
     Call<List<LocationInfo>> setLocation(
