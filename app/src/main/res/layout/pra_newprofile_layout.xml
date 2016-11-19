@@ -31,7 +31,7 @@
             android:id="@+id/imgCircle"
             android:layout_below="@+id/imgProfileHeader"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/fuckyougradient"
+            android:src="@drawable/portraitoverlap"
             android:layout_marginTop="25dp" />
 
         <TextView
