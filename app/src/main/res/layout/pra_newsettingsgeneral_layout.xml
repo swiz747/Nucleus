@@ -25,7 +25,7 @@
             android:id="@+id/txtNotifications"
             android:layout_below="@+id/imgSettingsHeader"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/bluethickboxtrans"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
@@ -76,6 +76,18 @@
             android:checked="false"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="General"
+            android:id="@+id/txtSettingsGeneral"
+            android:textStyle="bold"
+            android:textColor="#0E2165"
+            android:textSize="50sp"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </LinearLayout>
