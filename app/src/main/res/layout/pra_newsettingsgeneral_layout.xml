@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSettingsHeader"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fheadersettings" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Notifications"
+            android:id="@+id/txtNotifications"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Sound"
+            android:id="@+id/txtSound"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtNotifications"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/backarrow"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchNotifications"
+            android:layout_alignTop="@+id/txtNotifications"
+            android:layout_alignEnd="@+id/txtNotifications"
+            android:checked="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchSound"
+            android:layout_alignTop="@+id/txtSound"
+            android:layout_alignStart="@+id/switchNotifications"
+            android:checked="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp" />
+
+    </RelativeLayout>
+</LinearLayout>

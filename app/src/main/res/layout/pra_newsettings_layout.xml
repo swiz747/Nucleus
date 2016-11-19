@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSettingsHeader"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fheadersettings" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="General"
+            android:id="@+id/txtNotifications"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Account Info"
+            android:id="@+id/txtSound"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtNotifications"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Privacy"
+            android:id="@+id/textView20"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtSound"
+            android:layout_alignStart="@+id/txtSound"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Location"
+            android:id="@+id/textView21"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/textView20"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Friends"
+            android:id="@+id/textView22"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/textView21"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Terms of Service"
+            android:id="@+id/textView23"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/textView22"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Contact Us"
+            android:id="@+id/textView24"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/textView23"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/backarrow"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+    </RelativeLayout>
+</LinearLayout>
