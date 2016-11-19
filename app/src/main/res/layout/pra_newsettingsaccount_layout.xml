@@ -21,29 +21,29 @@
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="General"
-            android:id="@+id/txtGeneral"
-            android:background="@drawable/bluethickboxtrans"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:textColor="#0E2165"
-            android:textStyle="bold"
+            android:text="Change Email"
+            android:id="@+id/txtEmail"
             android:layout_below="@+id/imgSettingsHeader"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="55dp" />
+            android:layout_marginTop="60dp"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Account Info"
-            android:id="@+id/txtAccountInfo"
+            android:text="Change Password"
+            android:id="@+id/txtPassword"
             android:background="@drawable/bluethickboxtrans"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:textColor="#0E2165"
             android:textStyle="bold"
-            android:layout_below="@+id/txtGeneral"
+            android:layout_below="@+id/txtEmail"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp" />
 
@@ -51,75 +51,29 @@
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Privacy"
-            android:id="@+id/txtPrivacy"
+            android:text="Change Phone Number"
+            android:id="@+id/txtChangePhone"
             android:background="@drawable/bluethickboxtrans"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:textColor="#0E2165"
             android:textStyle="bold"
-            android:layout_below="@+id/txtAccountInfo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/txtPassword" />
 
         <TextView
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Location"
-            android:id="@+id/txtLocation"
+            android:text="Devices"
+            android:id="@+id/txtDevices"
             android:background="@drawable/bluethickboxtrans"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:textColor="#0E2165"
             android:textStyle="bold"
-            android:layout_below="@+id/txtPrivacy"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Friends"
-            android:id="@+id/txtFriends"
-            android:background="@drawable/bluethickboxtrans"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:textColor="#0E2165"
-            android:textStyle="bold"
-            android:layout_below="@+id/txtLocation"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Terms of Service"
-            android:id="@+id/txtTerms"
-            android:background="@drawable/bluethickboxtrans"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:textColor="#0E2165"
-            android:textStyle="bold"
-            android:layout_below="@+id/txtFriends"
-            android:layout_alignStart="@+id/txtFriends"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Contact Us"
-            android:id="@+id/txtContact"
-            android:background="@drawable/bluethickboxtrans"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:textColor="#0E2165"
-            android:textStyle="bold"
-            android:layout_below="@+id/txtTerms"
-            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtChangePhone"
+            android:layout_alignStart="@+id/txtChangePhone"
             android:layout_marginTop="10dp" />
 
         <ImageView
@@ -131,6 +85,18 @@
             android:src="@drawable/backarrow"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Account"
+            android:id="@+id/txtAccountSettings"
+            android:textStyle="bold"
+            android:textColor="#0E2165"
+            android:textSize="50sp"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </LinearLayout>
