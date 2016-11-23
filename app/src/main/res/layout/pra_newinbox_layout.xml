@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgHeader"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fheaderinbox" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBackButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/backarrow"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSettingsButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/settingswheel"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bluethickboxtrans"
+            android:id="@+id/relativeLayout3"
+            android:layout_below="@+id/imgHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="## New Messages!"
+                android:id="@+id/textView19"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="#0E2165"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView7"
+            android:layout_below="@+id/relativeLayout3"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/imgBackButton"
+            android:layout_alignRight="@+id/imgSettingsButton"
+            android:fillViewport="false">
+
+            <RelativeLayout
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/relativeLayout3"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/inboxborder"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgOnlineOffline"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/fishon"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp" />
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/imgUserPhoto"
+                    android:src="@drawable/nophoto150150"
+                    android:layout_alignTop="@+id/imgPortrait"
+                    android:layout_toRightOf="@+id/imgOnlineOffline" />
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/imgPortrait"
+                    android:src="@drawable/inboxpicture"
+                    android:layout_alignTop="@+id/imgOnlineOffline"
+                    android:layout_alignLeft="@+id/imgUserPhoto"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="\@NoUser"
+                    android:id="@+id/txtUsername"
+                    android:textColor="#0E2165"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/imgOnlineOffline"
+                    android:layout_toRightOf="@+id/imgUserPhoto"
+                    android:layout_marginLeft="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Yo dawg, where you at?"
+                    android:id="@+id/txtLineOne"
+                    android:textColor="#0E2165"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/txtUsername"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="I don&apos;t have a semi colon button."
+                    android:id="@+id/txtLineTwo"
+                    android:textColor="#0E2165"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/txtLineOne"
+                    android:layout_alignLeft="@+id/txtLineOne"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="1i30 am"
+                    android:id="@+id/txtTime"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#555555"
+                    android:textSize="15sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</LinearLayout>
