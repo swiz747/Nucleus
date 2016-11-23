@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="125dp"
+            android:background="@drawable/adspace"
+            android:id="@+id/imgAdspace"
+            android:layout_below="@+id/imgHeader"
+            android:layout_alignLeft="@+id/relativeLayout5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Adspace Here!"
+                android:id="@+id/textView18"
+                android:textColor="#0E2165"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/imgButtonLeft"
+            android:src="@drawable/onedot"
+            android:layout_marginLeft="150dp"
+            android:layout_below="@+id/imgAdspace"
+            android:layout_toRightOf="@+id/imageView25"
+            android:layout_marginTop="5dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/imgButtonMiddle"
+            android:src="@drawable/onedot"
+            android:layout_alignTop="@+id/imgButtonLeft"
+            android:layout_toRightOf="@+id/imgButtonLeft"
+            android:layout_marginLeft="5dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/imgButtonRight"
+            android:src="@drawable/onedot"
+            android:layout_above="@+id/relativeLayout4"
+            android:layout_toRightOf="@+id/imgButtonMiddle"
+            android:layout_marginLeft="5dp" />
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="125dp"
+            android:background="@drawable/adspace"
+            android:id="@+id/relativeLayout4"
+            android:layout_below="@+id/imgButtonLeft"
+            android:layout_alignLeft="@+id/relativeLayout5"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="##"
+                android:id="@+id/txtNumbersChatting"
+                android:textColor="#ff0000"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Users are within"
+                android:id="@+id/txtChatLineOne"
+                android:textColor="#0E2165"
+                android:paddingStart="5sp"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/txtNumbersChatting"
+                android:layout_toRightOf="@+id/txtNumbersChatting" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="your radius!"
+                android:id="@+id/txtChatline2"
+                android:textColor="#0E2165"
+                android:paddingStart="5sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/txtChatLineOne"
+                android:layout_toRightOf="@+id/txtNumbersChatting" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgChatNow"
+                android:src="@drawable/chatnowbutton"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="125dp"
+            android:background="@drawable/adspace"
+            android:id="@+id/relativeLayout5"
+            android:layout_below="@+id/relativeLayout4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="$$"
+                android:id="@+id/txtGroupersNum"
+                android:textColor="#ff0000"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Events are in"
+                android:id="@+id/txtGroupersLineOne"
+                android:textColor="#0E2165"
+                android:paddingStart="5sp"
+                android:textStyle="bold"
+                android:layout_alignTop="@+id/txtGroupersNum"
+                android:layout_toRightOf="@+id/txtGroupersNum" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="your area!"
+                android:id="@+id/txtGroupersLineTwo"
+                android:textColor="#0E2165"
+                android:paddingStart="5sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/txtGroupersLineOne"
+                android:layout_toRightOf="@+id/txtGroupersNum" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgGroupers"
+                android:src="@drawable/grouperbutton"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:id="@+id/imgHeader"
+            android:src="@drawable/welcomebackheader"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/imgSettingsButton"
+            android:src="@drawable/settingswheel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp" />
+
+    </RelativeLayout>
+</LinearLayout>

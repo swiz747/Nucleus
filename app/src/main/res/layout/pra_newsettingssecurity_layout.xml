@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSettingsHeader"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fheadersettings" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Viewing Privacy"
+            android:id="@+id/txtViewingPrivacy"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtLoginAlerts"
+            android:layout_alignLeft="@+id/txtFriendRequest"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Friend Requests"
+            android:id="@+id/txtFriendRequest"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtViewingPrivacy"
+            android:layout_alignLeft="@+id/txtDeactivate"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBackArrow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/backarrow"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Security"
+            android:id="@+id/txtSecurity"
+            android:textStyle="bold"
+            android:textColor="#0E2165"
+            android:textSize="50sp"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Login Alerts"
+            android:id="@+id/txtLoginAlerts"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtSecurity"
+            android:layout_alignLeft="@+id/txtViewingPrivacy" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Deactivate Account"
+            android:id="@+id/txtDeactivate"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtPublicProfile"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchShowHist"
+            android:layout_alignTop="@+id/txtLoginAlerts"
+            android:layout_alignRight="@+id/txtLoginAlerts"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchHideLoc."
+            android:layout_alignTop="@+id/txtDeactivate"
+            android:layout_alignRight="@+id/txtDeactivate"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Public Profile"
+            android:id="@+id/txtPublicProfile"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtFriendRequest"
+            android:layout_alignLeft="@+id/txtFriendRequest"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+</LinearLayout>

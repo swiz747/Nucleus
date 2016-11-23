@@ -1,0 +1,161 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/res_image_blue_gradient">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSettingsHeader"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fheadersettings" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Change Radius"
+            android:id="@+id/txtChangeRadius"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Blocked Users"
+            android:id="@+id/txtLocationHistory"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtChangeRadius"
+            android:layout_alignLeft="@+id/txtChangeRadius"
+            android:layout_marginTop="160dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/backarrow"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Security"
+            android:id="@+id/txtSecurity"
+            android:textStyle="bold"
+            android:textColor="#0E2165"
+            android:textSize="50sp"
+            android:layout_below="@+id/imgSettingsHeader"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Show History"
+            android:id="@+id/txtShowHistory"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtLocationHistory"
+            android:layout_alignLeft="@+id/txtLocationHistory"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hide Location"
+            android:id="@+id/txtHideLocation"
+            android:background="@drawable/bluethickboxtrans"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textColor="#0E2165"
+            android:textStyle="bold"
+            android:layout_marginTop="46dp"
+            android:layout_alignTop="@+id/txtShowHistory"
+            android:layout_alignLeft="@+id/txtShowHistory" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchShowHist"
+            android:layout_alignTop="@+id/txtShowHistory"
+            android:layout_alignRight="@+id/txtShowHistory"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchHideLoc."
+            android:layout_alignTop="@+id/txtHideLocation"
+            android:layout_alignRight="@+id/txtHideLocation"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/txtChangeRadius"
+            android:layout_alignLeft="@+id/txtLocationHistory"
+            android:layout_alignRight="@+id/txtLocationHistory"
+            android:background="@drawable/dropdownbox">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 Miles"
+                android:id="@+id/radioFive"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:textColor="#0E2165"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 Miles"
+                android:id="@+id/radioTen"
+                android:textColor="#0E2165"
+                android:textStyle="bold"
+                android:layout_below="@+id/radioFive"
+                android:layout_alignLeft="@+id/radioFive" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 Miles"
+                android:id="@+id/radioTwentyFive"
+                android:textColor="#0E2165"
+                android:textStyle="bold"
+                android:layout_below="@+id/radioTen"
+                android:layout_alignLeft="@+id/radioTen" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>
